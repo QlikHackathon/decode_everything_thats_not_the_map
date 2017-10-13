@@ -36,7 +36,16 @@ function main () {
     createOceanBasinsPieChart()
     createLeadEntityPieChart()
     createTargetsPieChart()
-
+    createGoalCountKpi("14.a")
+    createGoalCountKpi("14.b")
+    createGoalCountKpi("14.c")
+    createGoalCountKpi("14.1")
+    createGoalCountKpi("14.2")
+    createGoalCountKpi("14.3")
+    createGoalCountKpi("14.4")
+    createGoalCountKpi("14.5")
+    createGoalCountKpi("14.6")
+    createGoalCountKpi("14.7")
     console.log(app.selectionState())
   })
 }
@@ -46,7 +55,7 @@ function createLeadEntityTypePieChart () {
     {
       qDef: {qFieldDefs: ['Lead entity type']}
     },
-    '=Count([Lead entity])'
+    '=Count(distinct [Lead entity])'
   ]
 
   app.visualization.create('treemap', listCols, {title: 'Lead Entity Type Pie Chart'}).then(function (piechart) {
@@ -82,7 +91,6 @@ function createTargetsPieChart () {
 
 function createOceanBasinsPieChart () {
   var listCols = [
-    // {'qDef': {'qDef': 'Sum( [OceanActionID] )', 'qLabel': 'Open Cases'}}
     {
       qDef: {qFieldDefs: ['Ocean Basins']}
     },
@@ -95,7 +103,17 @@ function createOceanBasinsPieChart () {
   })
 }
 
+function createGoalCountKpi (target) {
+  var listCols = ["=Count({<[SDG Targets]={'"+target+"'}>}OceanActionID)"]
 
+  app.visualization.create('kpi', listCols, {
+    title: target + ' Commitments',
+    showTitles: true,
+    showMeasureTitle: false
+  }).then(function (kpi) {
+    kpi.show('goals-count-kpi-'+target)
+  })
+}
 
 function clearState (state) {
   state = state || '$'

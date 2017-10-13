@@ -41,6 +41,10 @@ code {
   width: 25%
 }
 
+.qvt-chart-tooltip .value {
+    margin-right: 10px;
+}
+
 .overlay {
     height: 0%;
     width: 100%;
@@ -86,4 +90,3 @@ code {
     right: 35px;
   }
 }
-
