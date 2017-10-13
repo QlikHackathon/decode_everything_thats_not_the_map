@@ -46,7 +46,6 @@ function main () {
     createGoalCountKpi("14.5")
     createGoalCountKpi("14.6")
     createGoalCountKpi("14.7")
-    // createGoalCountKpiAlphabet()
     console.log(app.selectionState())
   })
 }
@@ -115,17 +114,6 @@ function createGoalCountKpi (target) {
     kpi.show('goals-count-kpi-'+target)
   })
 }
-function createGoalCountKpiAlphabet() {
-  var listCols= ["=Count({<[SDG Targets]={'14.a'}>}OceanActionID)"]
-  app.visualization.create('kpi', listCols, {
-    title: 'One Sot Commitments',
-    showTitles: true,
-    showMeasureTitle: false
-  }).then(function (kpi) {
-    kpi.show('goals-count-kpi-oneshot')
-  })
-}
-
 
 function clearState (state) {
   state = state || '$'
