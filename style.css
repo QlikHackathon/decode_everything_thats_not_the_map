@@ -33,3 +33,7 @@ code {
 #goal-id-list {
   width: 25%
 }
+
+.qvt-chart-tooltip .value {
+    margin-right: 10px;
+}
