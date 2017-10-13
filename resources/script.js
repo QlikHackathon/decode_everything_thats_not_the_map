@@ -29,12 +29,56 @@ function main () {
     console.log('Connecting to appname: ' + config.appname)
     app = qlik.openApp(config.appname, config)
     console.log(app)
-
-    createPartnersList()
+    let field = app.field("Goal ID")
+    field.selectValues(["Goal 14"], false, true)
+    field.lock()
+    createLeadEntityTypePieChart()
     createOceanBasinsPieChart()
+    createLeadEntityPieChart()
+    createTargetsPieChart()
+
+    console.log(app.selectionState())
   })
 }
 
+function createLeadEntityTypePieChart () {
+  var listCols = [
+    {
+      qDef: {qFieldDefs: ['Lead entity type']}
+    },
+    '=Count([Lead entity])'
+  ]
+
+  app.visualization.create('treemap', listCols, {title: 'Lead Entity Type Pie Chart'}).then(function (piechart) {
+    piechart.show('lead-entity-type-pie-chart')
+  })
+}
+
+function createLeadEntityPieChart () {
+  var listCols = [
+    {
+      qDef: {qFieldDefs: ['Lead entity']}
+    },
+    '=Count([OceanActionID])'
+  ]
+
+  app.visualization.create('treemap', listCols, {title: 'Lead Entity Pie Chart'}).then(function (piechart) {
+    piechart.show('lead-entity-pie-chart')
+  })
+}
+function createTargetsPieChart () {
+  var listCols = [
+    {
+      qDef: {qFieldDefs: ['SDG Targets']}
+    },
+    '=Count([OceanActionID])'
+  ]
+
+  app.visualization.create('treemap', listCols, {title: 'Targets Pie Charts'}).then(function (piechart) {
+    console.log(piechart)
+    piechart.show('targets-pie-chart')
+  })
+}
 
 function createOceanBasinsPieChart () {
   var listCols = [
@@ -45,28 +89,19 @@ function createOceanBasinsPieChart () {
     '=Count([OceanActionID])'
   ]
 
-  app.visualization.create('piechart', listCols, {title: 'Ocean Basins Pie Chart'}).then(function (piechart) {
+  app.visualization.create('treemap', listCols, {title: 'Ocean Basins Pie Chart'}).then(function (piechart) {
     console.log(piechart)
     piechart.show('ocean-basins-pie-chart')
   })
 }
 
-function createPartnersList () {
-  var listCols = [
-    {
-      qDef: { qFieldDefs: ['Ocean Basins'] }
-    }
-  ]
 
-  app.visualization.create('table', listCols, {title: 'Partners List'}).then(function (list) {
-    console.log(list)
-    list.show('partners-list')
-  })
-}
 
 function clearState (state) {
   state = state || '$'
   app.clearAll(false, state)
+  //except for Goal 14
+  app.field("Goal ID").selectValues(["Goal 14"], false, false)
   console.log('State Cleared:', state)
 }
 
