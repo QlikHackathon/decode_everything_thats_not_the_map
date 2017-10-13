@@ -61,33 +61,52 @@ function onEachFeature(feature, layer) {
   });
 }
 
-function highlightFeature(e) {
-  var layer = e.target;
+  function highlightFeature(e) {
+    var layer = e.target;
 
-  layer.setStyle({
-    weight: 5,
-    color: '#666',
-    dashArray: '',
-    fillOpacity: 0.7
-  });
+    layer.setStyle({
+      weight: 5,
+      color: '#666',
+      fill: e.target.options.fill,
+      fillColor: e.target.options.fillColor
+    });
 
-  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-    layer.bringToFront();
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+    }
+
+    info.update(layer.feature.properties);
   }
 
-  info.update(layer.feature.properties);
-}
 
+  function resetHighlight(e) {
+    e.target.setStyle({
+        weight: 2,
+        color: "white",
+        dashArray: '3',
+        fill: e.target.options.fill,
+        fillColor: e.target.options.fillColor
+    });
+    
 
-function resetHighlight(e) {
-  geoJson.resetStyle(e.target);
-  info.update();
-}
+    info.update();
+  }
 
-function oceanCLicked(e) {
-  //map.fitBounds(e.target.getBounds());
-  console.log("Target is: " + e.target);
-  let clickOcean = e.target.feature.properties.NAME;
-  console.log("Clicked: " + clickedOcean);
+  function oceanCLicked(e) {
+    //map.fitBounds(e.target.getBounds());
+    console.log("Target is: " + e.target);
+    
+    let clickedOcean = e.target.feature.properties.NAME;
+    if(e.target.isClicked == null) {
+    e.target.isClicked = true;
+    } else {
+    e.target.isClicked = !e.target.isClicked;
+    }
+    
+    if(e.target.isClicked) {
+    e.target.setStyle({ fillColor: '#FF0000', fill: true});
+    } else {
+    e.target.setStyle({ fillColor: 'rgba(0,0,0,0)', fill: true});
+    }    
+  }
 
-}
