@@ -1,0 +1,35 @@
+html {
+  position: relative;
+}
+
+
+body > .container {
+  padding: 10px 10px 0;
+}
+
+code {
+  font-size: 80%;
+}
+
+.chart {
+  margin: 30px 10px 30px 10px;
+  height: 400px;
+  width: 30%;
+  display: inline-block;
+}
+
+#buttons-div {
+  margin: 70px 10px 0px 10px;
+}
+
+#title-list {
+  width: 40%
+}
+
+#partners-list {
+  width: 25%
+}
+
+#goal-id-list {
+  width: 25%
+}
