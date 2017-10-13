@@ -48,18 +48,29 @@ code {
     z-index: 2;
     top: 0;
     left: 0;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0, 0.9);
+    background-color: #3997d9;
     overflow-y: hidden;
     transition: 0.5s;
 }
 
 .overlay-content {
     position: relative;
-    top: 25%;
     width: 100%;
-    text-align: center;
-    margin-top: 35px;
+    padding: 50px;
+}
+
+.overlay-icon {
+  display: inline-block;
+  height: 200px;
+  width: 200px;  
+  position: absolute
+}
+
+.overlay-text {
+  display: inline-block;
+  text-align: left;
+  margin-left: 230px;
+  color: white;
 }
 
 .overlay {
@@ -87,3 +98,6 @@ code {
   }
 }
 
+.capitalized {
+  text-transform: uppercase;
+}
