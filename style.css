@@ -18,6 +18,13 @@ code {
   display: inline-block;
 }
 
+#mapid {
+  width: 80%;
+  height: 600px;
+  text-align: center;
+  margin-left: 10%;
+}
+
 #buttons-div {
   margin: 70px 10px 0px 10px;
 }
