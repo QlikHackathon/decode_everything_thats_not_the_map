@@ -267,7 +267,7 @@ function createCommitmentList() {
     const $list = $('#commitmentList');
     matrix.forEach(row => {
       let anchor = $(
-        `<a target='_blank' href='${row[0].qText}'>${row[0].qText}</a>`
+        `<a target='_blank' href='${row[1].qText}'>${row[0].qText}</a>`
       )
       let item = $(`<div class='list-group-item'></div>`)
       item.append(anchor)
