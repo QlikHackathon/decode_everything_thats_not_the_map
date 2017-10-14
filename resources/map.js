@@ -7,11 +7,14 @@ var oceanBlue = '#0077BE';
 var mymap = L.map('mapid', {
   zoomDelta: 0.5,
   zoomSnap: 0,
-}).setView([30, 2], minZoom).zoomIn(0.5)
-mymap.options.minZoom = minZoom;
-/*mymap.on('dragend', function(e) {
-
-});*/
+  trackResize: true,
+}).setView([30, 2], 0);
+mymap.on('resize', function(e) {
+  mymap.fitBounds([
+    [78.7376130545727, 180.2446852962772],
+    [-65.94838222431271, -179.423608503526]
+  ]);
+});
 
 var oceanElements = [];
 var countriesElement = [];
@@ -82,7 +85,12 @@ Promise.all([
     bounds: oceanGeoJson.getBounds(),
     maxBoundsViscosity: 1.0 //How much force you experience when going out of bounds
   }).addTo(mymap);
-  mymap.panTo(new L.LatLng(0, 0));
+
+  mymap.fitBounds([
+    [78.7376130545727, 180.2446852962772],
+    [-65.94838222431271, -179.423608503526]
+  ]);
+
 });
 
 // control that shows state info on hover
