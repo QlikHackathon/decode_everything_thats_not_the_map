@@ -83,7 +83,7 @@ code {
     background-color: #3997d9;
     overflow: hidden;
     transition: 0.5s;
-    animation-duration: 1.5s;
+    animation-duration: 1s;
     animation-fill-mode: forwards;
 }
 
@@ -140,6 +140,24 @@ code {
     text-decoration: none;
     color: white;
     z-index: 5;
+}
+
+.question-mark {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  z-index: 1002;
+}
+
+.question-mark-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
 }
 
 #all_filters {

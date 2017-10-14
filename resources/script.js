@@ -200,7 +200,7 @@ function createCommitmentList() {
       {
         qTop: 0,
         qLeft: 0,
-        qHeight: 2000,
+        qHeight: 10,
         qWidth: 2
       }
     ]
