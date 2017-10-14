@@ -35,67 +35,80 @@
         </div>
 
         <div class="col col-md-10 overlay-text">
-            <h1 class="oswald">GOAL 14</h1>
-            <h2 class="capitalized oswald">conserve and sustainbly use the oceans, seas and marine resources for sustainable development</h2>
-            <h2>How are you helping #saveourocean?</h2>
-            <p>The world's oceans drive global systems that make earth a habitable place for humankind. Careful management of our oceans is key to leading a sustainable future. Everyone is giving a hand – individually or in partnership.What are the committments by ocean basins? Which countries are involved? What type of organization are contributing?</p>
-            <p>Explore the voluntary commitments that aim to contribute to the implementation of <a href="http://www.un.org/sustainabledevelopment/oceans/" target="_blank">GOAL 14</a>.</p>
+          <h1 class="oswald">GOAL 14</h1>
+          <h2 class="capitalized oswald">conserve and sustainbly use the oceans, seas and marine resources for sustainable development</h2>
+          <h2>How are you helping #saveourocean?</h2>
+          <p>The United Nations (UN) has held a conference and multiple events to support the Implementation of Sustainable Development Goal 14 (SDG14): Conserve and sustainably use the oceans, seas and marine resources for sustainable development, aims to be the game changer that will reverse the decline in the health of our ocean for people, planet and prosperity.  The voluntary commitments are solutions-focused with engagement from all, including Member States and the broader community</p>
+          <p>This site allows you to explore the UN Member States, broader community and oceans to see who has volunteered to meet the various commitments for SDG14 and see what those specific commitments are.
+          When defined, commitments have been encouraged to follow the SMART Criteria - a commitment should be:</p>
+          <ul>
+            <li>Specific</li>
+            <li>Measurable</li>
+            <li>Achievable</li>
+            <li>Resource based, with</li>
+            <li>Time-based deliverables</li>
+          </ul>
+          We hope that this interactive experience will help raise awareness on the importance of the Ocean and the implementation of SDG14. 
+          <br>
+          <a href="" target="_blank">Learn more about GOAL 14</a>
         </div>
       </div>
-    </div>
-    <div class="overlay-image"></div>
-  </div>
-  <div class="header">
-    <div class="header-content">
-      <img class="header-icon" src="resources/images/logo.png">
+      <div class="down-arrow">Scroll down to explore more &#8595; </div>
     </div>
   </div>
-  <button class="question-mark-button" onClick="openOverlay()"><img src="resources/images/question-mark.png" class="question-mark" /></button>
-  <div id="map">
-    <h1 class="oswald"> Map </h1>
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <p class="center"> Explore the UN Member States, broader community and oceans to see who has volunteered to meet the various commitments for SDG14 and see what those specific commitments are. </p>
+  <span class="arrow" onclick="openOverlay()">&#8601;</span>
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="oswald map-title"> Volunteer <br/> Commitments </h1>
+    </div>
+    <div class="col-md-4" style="margin-left:-50px;">
+      <h1 class="oswald"> Sustainable Developent Goals </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div id="map">  
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <p class="center"> Explore the UN Member States, broader community and oceans to see who has volunteered to meet the various commitments for SDG14 and see what those specific commitments are. </p>
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+        <div id="mapid"></div>
       </div>
-      <div class="col-md-3"></div>
     </div>
-    <div id="mapid"></div>
-  </div>
-  <div id="svg">
-  <h1 class="oswald"> Sustainable Developent Goals </h1>
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
+    <div class="col-md-4" style="margin-left:-50px">
+      <div id="svg">
         <p class="center"> Sustainable Development Goals are categories chosen by the UN to focus commitments. <br /> Click on the categories to filter.</p>
+        <div id="targets" class="kpiAlignment" > </div>
+        <div id="showEnities"></div>
       </div>
-      <div class="col-md-3"></div>
     </div>
-    <div id="targets" class="kpiAlignment" > </div>
-    <div id="showEnities"></div>
   </div>
 
   <div class="filters">
-    <span class="filters-title"> Filters </span>
+    <span class="oswald filters-title"> Filters </span>
     <span id="filters-bar-style"></span>
     <div id="filters-bar">
     </div>
     <span id="commitment-count" class="filters-title">Commitments:
       <span id="commitments"></span>
     </span>
-    <button type="button" class="btn btn-default" onclick="clearState()">Clear Selections</button>
+    <button type="button" class="btn btn-info" onclick="clearState()">Clear Selections</button>
   </div>
 
   <div class="container list-container">
-    <h1>Lead Entity Types</h1>
+    <h1 class="oswald">Lead Entity Types</h1>
     <div class="list-group" id="leadEntityTypeList">
     </div>
   </div>
 
   <div class="container list-container">
-    <h1>Lead Entities</h1>
+    <h1 class="oswald">Lead Entities</h1>
     <div class="list-group" id="leadEntityList">
     </div>
+
   </div>
 
   <div class="container list-container">
