@@ -11,23 +11,24 @@ mymap.options.minZoom = minZoom;
 
 var oceanElements = [];
 
-$.getJSON("/resources/map.json", function(counrtyGeoJson){
-
-  geoJson = L.geoJson(counrtyGeoJson, {
+Promise.all([
+  $.getJSON("/resources/map.json"),
+  $.getJSON("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"),
+]).then(([oceanGeoJson, worldGeoJson]) => {
+  oceanGeoJson = L.geoJson(oceanGeoJson, {
     style: style,
     onEachFeature: onEachFeature
   }).addTo(mymap)
-  mymap.setMaxBounds(geoJson.getBounds());
+  mymap.setMaxBounds(oceanGeoJson.getBounds());
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
     maxZoom: maxZoom,
     id: 'mapbox.light',
     noWrap: true,
     continuousWorld: true,
-    bounds: geoJson.getBounds(),
+    bounds: oceanGeoJson.getBounds(),
     maxBoundsViscosity: 1.0 //How much force you experience when going out of bounds
   }).addTo(mymap);
-
 })
 
 // control that shows state info on hover
@@ -111,7 +112,7 @@ function onEachFeature(feature, layer) {
   function oceanCLicked(e) {
     let clickedOcean = e.target.feature.properties.NAME;
     console.log(clickedOcean);
-    app.field("Ocean Basins").selectValues([clickedOcean], false, true)
+    app.field("Ocean Basins").selectValues([clickedOcean], true, false)
     // if(e.target.isClicked == null) {
     //   e.target.isClicked = true;
     // } else {
@@ -126,7 +127,6 @@ function onEachFeature(feature, layer) {
   }
 
   function reloadMap(oceans) {
-
     oceanElements.forEach(function(oceanElement) {
       if (isInCube(oceans, oceanElement.feature.properties.NAME)) {
         oceanElement.setStyle({ fillColor: '#FF0000', fill: true});
