@@ -257,7 +257,7 @@ function createCommitmentList() {
       },
       {
         qDef: {
-          qFieldDefs: ['ActionID']
+          qFieldDefs: ['Commitment Url']
         }
       }
     ],
@@ -276,6 +276,7 @@ function createCommitmentList() {
     console.time("commitments-hypercube")
     let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
     const $list = $('#commitmentList');
+    $list.empty();
     matrix.forEach(row => {
       let anchor = $(
         `<a target='_blank' href='${row[1].qText}'>${row[0].qText}</a>`
