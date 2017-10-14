@@ -59,12 +59,15 @@
         </a>
       </div>
     </div>
-
     <span style="font-size:30px;cursor:pointer;float:right;padding:16px 45px 0 0;" onclick="openOverlay()">&#8601;</span>
     <div id="map">
       <div id="mapid"></div>
       <div id="buttons-div">
         <button type="button" class="btn btn-primary" onclick="clearState()">Clear Selections</button>
+        <select class="form-control" id="entityTypeSelection" onchange="selectEntityTypes()" style="display: inline-block; width: initial">
+        </select>
+        <select class="form-control" id="entitySelection" onchange="selectEntity()" style="display: inline-block; width: initial">
+        </select>
       </div>
     </div>
 
@@ -73,6 +76,20 @@
       <div id="lead-entity-type-pie-chart" class="chart"></div>
       <div id="lead-entity-pie-chart" class="chart"></div>
       <div id="targets-pie-chart" class="chart"></div>
+      <div id="ocean-basins-pie-chart" class="chart"></div>
+      <div id="lead-entity-type-pie-chart" class="chart"></div>
+      <div id="lead-entity-pie-chart" class="chart"></div>
+      <div id="targets-pie-chart" class="chart"></div>
+      <div id="goals-count-kpi-14.a" class="chart"></div>
+      <div id="goals-count-kpi-14.b" class="chart"></div>
+      <div id="goals-count-kpi-14.c" class="chart"></div>
+      <div id="goals-count-kpi-14.1" class="chart"></div>
+      <div id="goals-count-kpi-14.2" class="chart"></div>
+      <div id="goals-count-kpi-14.3" class="chart"></div>
+      <div id="goals-count-kpi-14.4" class="chart"></div>
+      <div id="goals-count-kpi-14.5" class="chart"></div>
+      <div id="goals-count-kpi-14.6" class="chart"></div>
+      <div id="goals-count-kpi-14.7" class="chart"></div>
     </div>
 
     <div class="filters" id="all_filters">

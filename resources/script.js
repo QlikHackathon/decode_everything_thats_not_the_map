@@ -37,7 +37,19 @@ function main () {
     createOceanBasinsPieChart()
     createLeadEntityPieChart()
     createTargetsPieChart()
+    createGoalCountKpi("14.a")
+    createGoalCountKpi("14.b")
+    createGoalCountKpi("14.c")
+    createGoalCountKpi("14.1")
+    createGoalCountKpi("14.2")
+    createGoalCountKpi("14.3")
+    createGoalCountKpi("14.4")
+    createGoalCountKpi("14.5")
+    createGoalCountKpi("14.6")
+    createGoalCountKpi("14.7")
 
+    getEntityTypes()
+    getEntity()
     console.log(app.selectionState())
   })
 }
@@ -47,7 +59,7 @@ function createLeadEntityTypePieChart () {
     {
       qDef: {qFieldDefs: ['Lead entity type']}
     },
-    '=Count([Lead entity])'
+    '=Count(distinct [Lead entity])'
   ]
 
   app.visualization.create('treemap', listCols, {title: 'Lead Entity Type Pie Chart'}).then(function (piechart) {
@@ -83,7 +95,6 @@ function createTargetsPieChart () {
 
 function createOceanBasinsPieChart () {
   var listCols = [
-    // {'qDef': {'qDef': 'Sum( [OceanActionID] )', 'qLabel': 'Open Cases'}}
     {
       qDef: {qFieldDefs: ['Ocean Basins']}
     },
@@ -96,7 +107,17 @@ function createOceanBasinsPieChart () {
   })
 }
 
+function createGoalCountKpi (target) {
+  var listCols = ["=Count({<[SDG Targets]={'"+target+"'}>}OceanActionID)"]
 
+  app.visualization.create('kpi', listCols, {
+    title: target + ' Commitments',
+    showTitles: true,
+    showMeasureTitle: false
+  }).then(function (kpi) {
+    kpi.show('goals-count-kpi-'+target)
+  })
+}
 
 function clearState (state) {
   state = state || '$'
@@ -106,17 +127,38 @@ function clearState (state) {
   console.log('State Cleared:', state)
 }
 
-function getFieldData() {
-  var myField = app.field("Ocean Basins")
+function getEntityTypes() {
+  var myField = app.field("Lead entity type")
   var listener = function() {
-    console.log('Data for Field:', myField)
-    var select = document.getElementById('classesSelection')
-
+    console.log('Getting entity types')
+    var select = document.getElementById('entityTypeSelection')
+    var val = select.value
+    select.innerHTML=""
     select.appendChild(createOption('', '--Select--'))
     myField.rows.forEach(function(row) {
       select.appendChild(createOption(row.qText))
     })
-    myField.OnData.unbind(listener)
+    select.value = val
+    //myField.OnData.unbind(listener)
+  }
+  myField.OnData.bind(listener)
+  myField.getData()
+}
+
+function getEntity() {
+  var myField = app.field("Lead entity")
+  var listener = function() {
+    console.log('Getting entity')
+    var select = document.getElementById('entitySelection')
+    var val = select.value
+    select.innerHTML=""
+    console.log(myField.rows)
+    select.appendChild(createOption('', '--Select--'))
+    myField.rows.forEach(function(row) {
+      select.appendChild(createOption(row.qText))
+    })
+    select.value = val
+    //myField.OnData.unbind(listener)
   }
   myField.OnData.bind(listener)
   myField.getData()
@@ -130,9 +172,16 @@ function createOption(value, text) {
   return option
 }
 
-function selectField() {
-  var select = document.getElementById('classesSelection')
+function selectEntityTypes() {
+  var select = document.getElementById('entityTypeSelection')
   if (select.value !== '') {
-    app.field("Ocean Basins").selectValues([select.value], false, true)
+    app.field("Lead entity type").selectValues([select.value], false, true)
+  }
+}
+
+function selectEntity() {
+  var select = document.getElementById('entitySelection')
+  if (select.value !== '') {
+    app.field("Lead entity").selectValues([select.value], false, true)
   }
 }
