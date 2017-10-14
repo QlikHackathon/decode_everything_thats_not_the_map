@@ -10,6 +10,16 @@ code {
     font-size: 80%;
 }
 
+h1 {
+  font-size: 55px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.center {
+  text-align: center;
+}
+
 #map {
     margin-top: 61px;
     height: auto;
@@ -74,15 +84,19 @@ code {
 }
 
 .overlay {
-    height: 0%;
-    width: 100%;
-    position: fixed;
-    z-index: 1001;
-    top: 0;
-    left: 0;
-    background-color: #3997d9;
-    overflow-y: hidden;
-    transition: 0.5s;
+  height: 0%;
+  width: 100%;
+  position: fixed;
+  z-index: 3001;
+  top: 0;
+  left: 0;
+  background-color: #3997d9;
+  overflow-y: hidden;
+  transition: 0.5s;
+}
+
+.overlay h1 {
+  text-align: left;
 }
 
 .overlay-content {
@@ -151,14 +165,15 @@ code {
 }
 
 .kpiAlignment {
-    position: relative;
-    display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
+  position: relative;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+  cursor: pointer;
 }
 
 .kpiElements {
@@ -177,11 +192,11 @@ code {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #d99f39;
+    background-color: #d08a11;
     color: #f1f1f1;
     text-align: left;
     padding: 12px 15px;
-    z-index: 999;
+    z-index: 2000;
     display: inline;
     -webkit-box-shadow: 0px -3px 3px rgba(50, 50, 50, 0.25);
     -moz-box-shadow: 0px -3px 3px rgba(50, 50, 50, 0.25);
@@ -190,6 +205,15 @@ code {
 
 .filter {
     margin-right: 15px;
+}
+
+.filters-title {
+  font-size: 20px;
+}
+
+#filters-bar-style {
+  border-right: thin double #f0c477;
+  margin-right: 10px;
 }
 
 @media screen and (max-height: 450px) {
