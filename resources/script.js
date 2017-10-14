@@ -32,6 +32,7 @@ function main() {
     field.lock()
     setupCountriesHyperCube();
     setupOceansHyperCube();
+    setupFilterBarHyperCube();
 
     createLeadEntityTypePieChart()
     createOceanBasinsPieChart()
@@ -152,7 +153,6 @@ function createGoalsAndSDGTargets() {
           field.selectValues([row[0].qText], true, true)
         })
         $(`#target${index}`).append(`<h1>${row[0].qText}</h1>`);
-        console.log(row[1].qText)
         $(`#target${index}`).append(`<img src="./resources/icons/${row[1].qText}.svg"></img>`);
         $(`#target${index}`).append(`<h3>${row[2].qText}</h3>`);
         $(`#target${index}`).append(`<h3>${percentage}%</h3>`);
@@ -256,7 +256,7 @@ function createCommitmentList() {
         qTop: 0,
         qLeft: 0,
         qHeight: 10,
-        qWidth: 1 
+        qWidth: 1
       }
     ]
   }

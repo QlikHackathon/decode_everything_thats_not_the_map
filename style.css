@@ -64,6 +64,11 @@ code {
     width: 25%
 }
 
+#commitment-count {
+  display: inline;
+  float: right;
+}
+
 .qvt-chart-tooltip .value {
   margin-right: 10px;
 }
