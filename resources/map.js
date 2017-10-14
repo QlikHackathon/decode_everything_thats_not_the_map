@@ -38,7 +38,6 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-  console.log(props)
   this._div.innerHTML = '<h4>Commitments Count</h4>' + (props ?
     '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
     : 'Hover over a ocean basin');
@@ -101,7 +100,7 @@ function onEachFeature(feature, layer) {
         fill: e.target.options.fill,
         fillColor: e.target.options.fillColor
     });
-    
+
 
     info.update();
   }
@@ -109,18 +108,17 @@ function onEachFeature(feature, layer) {
   function oceanCLicked(e) {
     //map.fitBounds(e.target.getBounds());
     console.log("Target is: " + e.target);
-    
+
     let clickedOcean = e.target.feature.properties.NAME;
     if(e.target.isClicked == null) {
-    e.target.isClicked = true;
+      e.target.isClicked = true;
     } else {
-    e.target.isClicked = !e.target.isClicked;
+      e.target.isClicked = !e.target.isClicked;
     }
-    
-    if(e.target.isClicked) {
-    e.target.setStyle({ fillColor: '#FF0000', fill: true});
-    } else {
-    e.target.setStyle({ fillColor: 'rgba(0,0,0,0)', fill: true});
-    }    
-  }
 
+    if(e.target.isClicked) {
+      e.target.setStyle({ fillColor: '#FF0000', fill: true});
+    } else {
+      e.target.setStyle({ fillColor: 'rgba(0,0,0,0)', fill: true});
+    }
+  }
