@@ -32,6 +32,7 @@ function main () {
     field.lock()
     setupCountriesHyperCube();
     setupOceansHyperCube();
+
     createLeadEntityTypePieChart()
     createOceanBasinsPieChart()
     createLeadEntityPieChart()
@@ -52,7 +53,6 @@ function main () {
 
     var selState = app.selectionState( )
     var listener = function() {
-      console.log(selState.selections)
       updateFilterBar(selState.selections)
     }
     //bind the listener
