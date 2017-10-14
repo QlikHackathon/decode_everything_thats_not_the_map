@@ -202,11 +202,27 @@ body {
     right: 0;
   }
   to {
-    height: 10%;
-    width: 10%;
+    height: 50px;
+    width: 50px;
     position: absolute;
     right: 0;
     top: 0;
     border-radius: 100%;
+  }
+}
+
+@keyframes open-overlay {
+  from {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 100%;
+  }
+  to { 
+    height:100%;
+    width: 100%;
+    right: 0;
   }
 }
