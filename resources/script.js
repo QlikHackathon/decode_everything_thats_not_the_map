@@ -50,6 +50,7 @@ function main() {
     selState.OnData.bind( listener )
     createGoalsAndSDGTargets()
     createCommitmentList()
+    createLeadEntityList()
   })
 }
 
@@ -266,14 +267,13 @@ function createCommitmentList() {
       {
         qTop: 0,
         qLeft: 0,
-        qHeight: 10,
+        qHeight: 100,
         qWidth: 2
       }
     ]
   }
 
   app.createCube(hyperCubeDef, hypercube => {
-    console.time("commitments-hypercube")
     let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
     const $list = $('#commitmentList');
     $list.empty();
@@ -285,6 +285,40 @@ function createCommitmentList() {
       item.append(anchor)
       $list.append(item)
     })
-    console.timeEnd("commitments-hypercube")
+  })
+}
+
+function createLeadEntityList() {
+  var hyperCubeDef = {
+    qDimensions: [
+      {
+        qDef: {
+          qFieldDefs: ['Lead entity'],
+          qSortCriterias: [{ qSortByAscii: 1 }]
+        }
+      }
+    ],
+    qMeasures: [],
+    qInitialDataFetch: [
+      {
+        qTop: 0,
+        qLeft: 0,
+        qHeight: 100,
+        qWidth: 1
+      }
+    ]
+  }
+
+  app.createCube(hyperCubeDef, hypercube => {
+    let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
+    const $list = $('#leadEntityList');
+    $list.empty();
+    matrix.forEach(row => {
+      let item = $(`<div class='list-group-item'>${row[0].qText}</div>`)
+      item.click(row => {
+
+      })
+      $list.append(item)
+    })
   })
 }

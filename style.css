@@ -16,18 +16,18 @@ code {
 }
 
 #map .info {
-  padding: 6px 8px;
-
-  font: 14px/16px Arial, Helvetica, sans-serif;
-  background: "white";
-  background: rgba(255,255,255,0.8);
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  border-radius: 5px;
-  width: 270px;
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: "white";
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 270px;
 }
+
 #map .info h4 {
-  margin: 0 0 5px;
-  color: #777;
+    margin: 0 0 5px;
+    color: #777;
 }
 
 #qOverlay {
@@ -65,24 +65,24 @@ code {
 }
 
 #commitment-count {
-  display: inline;
-  float: right;
+    display: inline;
+    float: right;
 }
 
 .qvt-chart-tooltip .value {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .overlay {
-  height: 0%;
-  width: 100%;
-  position: fixed;
-  z-index: 1001;
-  top: 0;
-  left: 0;
-  background-color: #3997d9;
-  overflow-y: hidden;
-  transition: 0.5s;
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    background-color: #3997d9;
+    overflow-y: hidden;
+    transition: 0.5s;
 }
 
 .overlay-content {
@@ -133,40 +133,39 @@ code {
 }
 
 .overlay {
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
 }
 
 .overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-  text-decoration: none;
-  color: white;
-  z-index: 5;
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    text-decoration: none;
+    color: white;
+    z-index: 5;
 }
 
 .kpiAlignment {
-  position: relative;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
+    position: relative;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 .kpiElements {
-  width: 10%;
-  margin: 1% 5%;
-  text-align:center;
+    width: 10%;
+    margin: 1% 5%;
+    text-align: center;
 }
-
 
 #all_filters {
     display: none;
@@ -212,8 +211,8 @@ code {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }
 
 .capitalized {
@@ -224,7 +223,7 @@ code {
     font-family: 'Oswald', sans-serif;
 }
 
-#commitmentList {
+.list-group {
     height: 207px;
     overflow-y: scroll;
     margin-top: 30px;
@@ -232,16 +231,12 @@ code {
     border-radius: 5px;
 }
 
-#commitmentList .list-group-item:hover {
+.list-group .list-group-item:hover {
     text-decoration: none;
     background-color: #f1f1f1;
 }
 
-#commitmentList:hover a {
-    text-decoration: none;
-}
-
-#commitmentList a {
+.list-group a {
     color: #3997d9;
 }
 
@@ -254,5 +249,5 @@ body {
 }
 
 .inactive {
-  opacity: 0.2;
+    opacity: 0.2;
 }
