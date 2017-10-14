@@ -136,7 +136,13 @@ function createGoalsAndSDGTargets() {
       matrix.forEach((row, index) => {
         var percentage = row[2].qNum / hypercube.qHyperCube.qGrandTotalRow[0].qNum;
         percentage = Math.round(percentage * 100);
-        $(`#targets`).append(`<div class="kpiElements" id="target${index}"></div>`);
+        var div = $(`<div class="kpiElements" id="target${index}"></div>`);
+        $(`#targets`).append(div);
+        div.click(function(){
+          console.log(row);
+          let field = app.field("SDG Target");
+          field.selectValues([row[0].qText], false, true)
+        })
         $(`#target${index}`).append(`<h1>${row[0].qText}</h1>`);
         console.log(row[1].qText)
         $(`#target${index}`).append(`<img src="./resources/icons/${row[1].qText}.svg"></img>`);
