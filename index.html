@@ -54,7 +54,7 @@
   </div>
   </div>
   <span style="font-size:30px;cursor:pointer;float:right;padding:16px 45px 0 0;" onclick="openOverlay()">&#8601;</span>
-  <div id="map">  
+  <div id="map">
     <h1 class="oswald"> Map </h1>
     <div class="row">
       <div class="col-md-2"></div>
@@ -83,9 +83,10 @@
     <span id="filters-bar-style"></span>
     <div id="filters-bar">
     </div>
-    <div id="commitment-count">Commitments:
+    <span id="commitment-count" class="filters-title">Commitments:
       <span id="commitments"></span>
-    </div>
+    </span>
+    <button type="button" class="btn btn-default" onclick="clearState()">Clear Selections</button>
   </div>
 
   <div class="container list-container">

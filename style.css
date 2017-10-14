@@ -75,8 +75,11 @@ h1 {
 }
 
 #commitment-count {
-    display: inline;
-    float: right;
+  display: inline;
+  float: right;
+  border-left: thin double #f0c477;
+  margin-left: 10px;
+  padding-left: 10px;
 }
 
 .qvt-chart-tooltip .value {
@@ -201,6 +204,10 @@ h1 {
     -webkit-box-shadow: 0px -3px 3px rgba(50, 50, 50, 0.25);
     -moz-box-shadow: 0px -3px 3px rgba(50, 50, 50, 0.25);
     box-shadow: 0px -3px 3px rgba(50, 50, 50, 0.25);
+}
+
+.filters button {
+  float: right;
 }
 
 .filter {
