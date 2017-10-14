@@ -126,5 +126,25 @@ function onEachFeature(feature, layer) {
   }
 
   function reloadMap(oceans) {
-    console.log(oceanElements);
+
+    oceanElements.forEach(function(oceanElement) {
+      if (isInCube(oceans, oceanElement.feature.properties.NAME)) {
+        oceanElement.setStyle({ fillColor: '#FF0000', fill: true});
+      } else {
+        oceanElement.setStyle({ fillColor: 'rgba(0,0,0,0)', fill: true});
+      }
+    });
+  }
+
+  function isInCube(oceanCube, oceanName) {
+    var found = false;
+    oceanCube.forEach(function(ocean) {
+      console.log(oceanName);
+      console.log(ocean[0].qText);
+      console.log(oceanName.toLowerCase() == ocean[0].qText.toLowerCase())
+      if (oceanName.toLowerCase() == ocean[0].qText.toLowerCase()) {
+        found = true
+      }
+    });
+    return found;
   }
