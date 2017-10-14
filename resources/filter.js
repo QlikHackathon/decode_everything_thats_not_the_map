@@ -1,7 +1,7 @@
 function updateFilterBar (selections) {
   $('#filters-bar').empty()
   selections.forEach(item => {
-    if (item.fieldName === 'Ocean Basins' || item.fieldName === 'Country' || item.fieldName === 'Target Title') {
+    if (item.fieldName !== 'Goal ID') {
       var filters = item.qSelected.split(',')
       filters.forEach(filter => {
         filter = filter.trim()

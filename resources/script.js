@@ -39,9 +39,6 @@ function main() {
     createLeadEntityPieChart()
     createTargetsPieChart()
 
-    getEntityTypes()
-    getEntity()
-
     var selState = app.selectionState( )
     var listener = function() {
       updateFilterBar(selState.selections)
@@ -50,6 +47,7 @@ function main() {
     selState.OnData.bind( listener )
     createGoalsAndSDGTargets()
     createCommitmentList()
+    createLeadEntityTypesList()
     createLeadEntityList()
   })
 }
@@ -189,62 +187,6 @@ function clearState(state) {
   app.field("Goal ID").selectValues(["Goal 14"], false, false)
 }
 
-function getEntityTypes() {
-  var myField = app.field("Lead entity type")
-  var listener = function() {
-    var select = document.getElementById('entityTypeSelection')
-    var val = select.value
-    select.innerHTML = ""
-    select.appendChild(createOption('', '--Select--'))
-    myField.rows.forEach(function (row) {
-      select.appendChild(createOption(row.qText))
-    })
-    select.value = val
-    //myField.OnData.unbind(listener)
-  }
-  myField.OnData.bind(listener)
-  myField.getData()
-}
-
-function getEntity() {
-  var myField = app.field("Lead entity")
-  var listener = function() {
-    var select = document.getElementById('entitySelection')
-    var val = select.value
-    select.innerHTML=""
-    select.appendChild(createOption('', '--Select--'))
-    myField.rows.forEach(function (row) {
-      select.appendChild(createOption(row.qText))
-    })
-    select.value = val
-    //myField.OnData.unbind(listener)
-  }
-  myField.OnData.bind(listener)
-  myField.getData()
-}
-
-function createOption(value, text) {
-  var option = document.createElement('option')
-  var name = document.createTextNode(text || value)
-  option.setAttribute('value', value)
-  option.appendChild(name)
-  return option
-}
-
-function selectEntityTypes() {
-  var select = document.getElementById('entityTypeSelection')
-  if (select.value !== '') {
-    app.field("Lead entity type").selectValues([select.value], false, true)
-  }
-}
-
-function selectEntity() {
-  var select = document.getElementById('entitySelection')
-  if (select.value !== '') {
-    app.field("Lead entity").selectValues([select.value], false, true)
-  }
-}
-
 function createCommitmentList() {
   var hyperCubeDef = {
     qDimensions: [
@@ -286,37 +228,49 @@ function createCommitmentList() {
   })
 }
 
-function createLeadEntityList() {
-  var hyperCubeDef = {
-    qDimensions: [
-      {
-        qDef: {
-          qFieldDefs: ['Lead entity'],
-          qSortCriterias: [{ qSortByAscii: 1 }]
+function createLeadEntityTypesList() {
+  
+    let field = app.field("Lead entity type")
+    let listener = () => {
+      console.log(field.rows)
+      const $list = $('#leadEntityTypeList');
+      $list.empty();
+      field.rows.forEach(row => {
+        let item = $(`<div class='list-group-item'>${row.qText}</div>`)
+        if(row.qState === "X") {
+          item.addClass("inactive")
         }
-      }
-    ],
-    qMeasures: [],
-    qInitialDataFetch: [
-      {
-        qTop: 0,
-        qLeft: 0,
-        qHeight: 100,
-        qWidth: 1
-      }
-    ]
+        item.click(() => {
+          app.field('Lead entity type').selectValues([row.qText], true, true)
+        })
+        $list.append(item)
+      })
+    }
+  
+    field.OnData.bind(listener)
+    field.getData()
   }
 
-  app.createCube(hyperCubeDef, hypercube => {
-    let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
+function createLeadEntityList() {
+
+  let field = app.field("Lead entity")
+  let listener = () => {
+    console.log('load list')
+    console.log(field.rows)
     const $list = $('#leadEntityList');
     $list.empty();
-    matrix.forEach(row => {
-      let item = $(`<div class='list-group-item'>${row[0].qText}</div>`)
-      item.click(row => {
-
+    field.rows.forEach(row => {
+      let item = $(`<div class='list-group-item'>${row.qText}</div>`)
+      if(row.qState === "X") {
+        item.addClass("inactive")
+      }
+      item.click(() => {
+        app.field('Lead entity').selectValues([row.qText], true, true)
       })
       $list.append(item)
     })
-  })
+  }
+
+  field.OnData.bind(listener)
+  field.getData()
 }
