@@ -141,7 +141,7 @@ function createGoalsAndSDGTargets() {
         div.click(function(){
           console.log(row);
           let field = app.field("SDG Target");
-          field.selectValues([row[0].qText], false, true)
+          field.selectValues([row[0].qText], true, true)
         })
         $(`#target${index}`).append(`<h1>${row[0].qText}</h1>`);
         console.log(row[1].qText)
