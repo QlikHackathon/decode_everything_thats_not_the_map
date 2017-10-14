@@ -1,6 +1,6 @@
 var app
 
-function setupMapHyperCube() {
+function setupOceansHyperCube() {
   var hyperCubeDef = {
     qDimensions: [
       { qDef: { qFieldDefs: ["Ocean Basins"] } }
@@ -22,6 +22,32 @@ function setupMapHyperCube() {
     const dataMatrix = hypercube.qHyperCube.qDataPages[0].qMatrix;
     const maxCommitment = hypercube.qHyperCube.qMeasureInfo[0].qMax;
 
-    reloadMap(dataMatrix);
+    reloadOceansLayer(dataMatrix);
+  })
+}
+
+function setupCountriesHyperCube() {
+  var hyperCubeDef = {
+    qDimensions: [
+      { qDef: { qFieldDefs: ["Country"] } },
+    ],
+    qMeasures: [
+      { qDef: { qDef: "=Count(Title)" } }
+    ],
+    qInitialDataFetch: [{
+      qTop: 0,
+      qLeft: 0,
+      qHeight: 3333,
+      qWidth: 3
+    }]
+  }
+
+  app.createCube(hyperCubeDef, function (hypercube) {
+    console.log("countries Hypercube", hypercube.qHyperCube)
+
+    const dataMatrix = hypercube.qHyperCube.qDataPages[0].qMatrix;
+    const maxCommitment = hypercube.qHyperCube.qMeasureInfo[0].qMax;
+
+    reloadCountriesLayer(dataMatrix);
   })
 }
