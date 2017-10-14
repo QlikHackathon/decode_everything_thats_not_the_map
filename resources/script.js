@@ -8,7 +8,7 @@ var config = {
   appname: '0b0fc6d5-05ce-44d7-95aa-80d0680b3559'
 }
 
-function main () {
+function main() {
   require.config({
     baseUrl: (config.isSecure ? 'https://' : 'http://') + config.host + (config.port ? ':' + config.port : '') + config.prefix + 'resources'
   })
@@ -57,51 +57,51 @@ function main () {
     }
     //bind the listener
     selState.OnData.bind( listener )
+    createCommitmentList()
   })
 }
 
-function createLeadEntityTypePieChart () {
+function createLeadEntityTypePieChart() {
   var listCols = [
     {
-      qDef: {qFieldDefs: ['Lead entity type']}
+      qDef: { qFieldDefs: ['Lead entity type'] }
     },
     '=Count(distinct [Lead entity])'
   ]
 
-  app.visualization.create('piechart', listCols, {title: 'Lead Entity Type Pie Chart'}).then(function (piechart) {
+  app.visualization.create('treemap', listCols, { title: 'Lead Entity Type Pie Chart' }).then(function (piechart) {
     piechart.show('lead-entity-type-pie-chart')
   })
 }
 
-function createLeadEntityPieChart () {
+function createLeadEntityPieChart() {
   var listCols = [
     {
-      qDef: {qFieldDefs: ['Lead entity']}
+      qDef: { qFieldDefs: ['Lead entity'] }
     },
     '=Count([OceanActionID])'
   ]
 
-  app.visualization.create('list', listCols, {title: 'Lead Entity Pie Chart'}).then(function (piechart) {
+  app.visualization.create('treemap', listCols, { title: 'Lead Entity Pie Chart' }).then(function (piechart) {
     piechart.show('lead-entity-pie-chart')
   })
 }
-function createTargetsPieChart () {
+function createTargetsPieChart() {
   var listCols = [
     {
-      qDef: {qFieldDefs: ['SDG Targets']}
+      qDef: { qFieldDefs: ['SDG Targets'] }
     },
     '=Count([OceanActionID])'
   ]
-
   app.visualization.create('treemap', listCols, {title: 'Targets Pie Charts'}).then(function (piechart) {
     piechart.show('targets-pie-chart')
   })
 }
 
-function createOceanBasinsPieChart () {
+function createOceanBasinsPieChart() {
   var listCols = [
     {
-      qDef: {qFieldDefs: ['Ocean Basins']}
+      qDef: { qFieldDefs: ['Ocean Basins'] }
     },
     '=Count([OceanActionID])'
   ]
@@ -111,19 +111,19 @@ function createOceanBasinsPieChart () {
   })
 }
 
-function createGoalCountKpi (target) {
-  var listCols = ["=Count({<[SDG Targets]={'"+target+"'}>}OceanActionID)"]
+function createGoalCountKpi(target) {
+  var listCols = ["=Count({<[SDG Targets]={'" + target + "'}>}OceanActionID)"]
 
   app.visualization.create('kpi', listCols, {
     title: target + ' Commitments',
     showTitles: true,
     showMeasureTitle: false
   }).then(function (kpi) {
-    kpi.show('goals-count-kpi-'+target)
+    kpi.show('goals-count-kpi-' + target)
   })
 }
 
-function clearState (state) {
+function clearState(state) {
   state = state || '$'
   app.clearAll(false, state)
   //except for Goal 14
@@ -135,9 +135,9 @@ function getEntityTypes() {
   var listener = function() {
     var select = document.getElementById('entityTypeSelection')
     var val = select.value
-    select.innerHTML=""
+    select.innerHTML = ""
     select.appendChild(createOption('', '--Select--'))
-    myField.rows.forEach(function(row) {
+    myField.rows.forEach(function (row) {
       select.appendChild(createOption(row.qText))
     })
     select.value = val
@@ -154,7 +154,7 @@ function getEntity() {
     var val = select.value
     select.innerHTML=""
     select.appendChild(createOption('', '--Select--'))
-    myField.rows.forEach(function(row) {
+    myField.rows.forEach(function (row) {
       select.appendChild(createOption(row.qText))
     })
     select.value = val
@@ -184,4 +184,43 @@ function selectEntity() {
   if (select.value !== '') {
     app.field("Lead entity").selectValues([select.value], false, true)
   }
+}
+
+function createCommitmentList() {
+  var hyperCubeDef = {
+    qDimensions: [
+      {
+        qDef: {
+          qFieldDefs: ['Title'],
+          qSortCriterias: [{ qSortByAscii: 1 }]
+        }
+      },
+      {
+        qDef: {
+          qFieldDefs: ['ActionID']
+        }
+      }
+    ],
+    qMeasures: [],
+    qInitialDataFetch: [
+      {
+        qTop: 0,
+        qLeft: 0,
+        qHeight: 2000,
+        qWidth: 2
+      }
+    ]
+  }
+
+  app.createCube(hyperCubeDef, hypercube => {
+    let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
+    matrix.forEach(row => {
+      let anchor = $(
+        `<a target='_blank' href='${row[0].qText}'>${row[0].qText}</a>`
+      )
+      let item = $(`<div class='list-group-item'></div>`)
+      item.append(anchor)
+      $('#commitmentList').append(item)
+    })
+  })
 }
