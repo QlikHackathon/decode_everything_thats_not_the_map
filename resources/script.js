@@ -166,8 +166,6 @@ function createGoalsAndSDGTargets() {
           field.selectValues([row[0].qText], true, true)
         })
         $(`#targets`).append(target);
-        console.log(row[1].qText)
-
       })
       console.timeEnd("targets-hypercube")
     })
