@@ -72,6 +72,16 @@ code {
   margin: 50px 0 0 50px;
 }
 
+.close-icon {
+  width: 20px;
+  margin-bottom: 3px;
+  margin-right: 5px;
+}
+
+.delete-filter:hover {
+  text-decoration: none;
+}
+
 .overlay-text {
   display: inline-block;
   text-align: left;
@@ -118,6 +128,34 @@ code {
     text-decoration: none;
     color: white;
     z-index: 5;
+}
+
+.filters {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #d99f39;
+    color: #f1f1f1;
+    text-align: left;
+    padding:12px 15px;
+    z-index:999;
+    display:inline;
+    -webkit-box-shadow: 0px -3px 3px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    0px -3px 3px rgba(50, 50, 50, 0.25);
+    box-shadow:         0px -3px 3px rgba(50, 50, 50, 0.25);
+}
+
+.filters span:first-child {
+  font-size: 20px;
+  color: #353535;
+  border-right: thin solid #f0c477;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.filter {
+  margin-right: 15px;
 }
 
 @media screen and (max-height: 450px) {
