@@ -46,6 +46,9 @@ function main () {
     createGoalCountKpi("14.5")
     createGoalCountKpi("14.6")
     createGoalCountKpi("14.7")
+
+    getEntityTypes()
+    getEntity()
     console.log(app.selectionState())
   })
 }
@@ -123,17 +126,38 @@ function clearState (state) {
   console.log('State Cleared:', state)
 }
 
-function getFieldData() {
-  var myField = app.field("Ocean Basins")
+function getEntityTypes() {
+  var myField = app.field("Lead entity type")
   var listener = function() {
-    console.log('Data for Field:', myField)
-    var select = document.getElementById('classesSelection')
-
+    console.log('Getting entity types')
+    var select = document.getElementById('entityTypeSelection')
+    var val = select.value
+    select.innerHTML=""
     select.appendChild(createOption('', '--Select--'))
     myField.rows.forEach(function(row) {
       select.appendChild(createOption(row.qText))
     })
-    myField.OnData.unbind(listener)
+    select.value = val
+    //myField.OnData.unbind(listener)
+  }
+  myField.OnData.bind(listener)
+  myField.getData()
+}
+
+function getEntity() {
+  var myField = app.field("Lead entity")
+  var listener = function() {
+    console.log('Getting entity')
+    var select = document.getElementById('entitySelection')
+    var val = select.value
+    select.innerHTML=""
+    console.log(myField.rows)
+    select.appendChild(createOption('', '--Select--'))
+    myField.rows.forEach(function(row) {
+      select.appendChild(createOption(row.qText))
+    })
+    select.value = val
+    //myField.OnData.unbind(listener)
   }
   myField.OnData.bind(listener)
   myField.getData()
@@ -147,9 +171,16 @@ function createOption(value, text) {
   return option
 }
 
-function selectField() {
-  var select = document.getElementById('classesSelection')
+function selectEntityTypes() {
+  var select = document.getElementById('entityTypeSelection')
   if (select.value !== '') {
-    app.field("Ocean Basins").selectValues([select.value], false, true)
+    app.field("Lead entity type").selectValues([select.value], false, true)
+  }
+}
+
+function selectEntity() {
+  var select = document.getElementById('entitySelection')
+  if (select.value !== '') {
+    app.field("Lead entity").selectValues([select.value], false, true)
   }
 }

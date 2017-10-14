@@ -55,8 +55,10 @@
     <div id="svg">
       <div id="buttons-div">
         <button type="button" class="btn btn-primary" onclick="clearState()">Clear Selections</button>
-        <!-- <select class="form-control" id="classesSelection" onchange="selectField()" style="display: inline-block; width: initial">
-        </select> -->
+        <select class="form-control" id="entityTypeSelection" onchange="selectEntityTypes()" style="display: inline-block; width: initial">
+        </select>
+        <select class="form-control" id="entitySelection" onchange="selectEntity()" style="display: inline-block; width: initial">
+        </select>
       </div>
       <div id="ocean-basins-pie-chart" class="chart"></div>
       <div id="lead-entity-type-pie-chart" class="chart"></div>
