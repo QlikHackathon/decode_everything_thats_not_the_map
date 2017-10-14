@@ -252,3 +252,7 @@ code {
 body {
     padding-bottom: 100px;
 }
+
+.inactive {
+  opacity: 0.2;
+}

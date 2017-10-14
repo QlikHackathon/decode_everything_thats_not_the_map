@@ -108,18 +108,23 @@ function createGoalsAndSDGTargets() {
     qDimensions: [
       {
         qDef: {
-          qFieldDefs: ['SDG Target'],
+          qFieldDefs: ['Target Title'],
         }
       },
       {
         qDef: {
           qFieldDefs:['Target Icon']
         }
+      },
+      {
+        qDef: {
+          qFieldDefs: ['Goal ID'],
+        }
       }
     ],
     qMeasures: [
       {
-        qDef: { qDef: '=Count([OceanActionID])' },
+        qDef: { qDef: '=Count(OceanActionID) + (0 * Count({1}OceanActionID))' },
         qSortBy: { qSortByNumeric: -1 }
       },
 
@@ -129,8 +134,8 @@ function createGoalsAndSDGTargets() {
       {
         qTop: 0,
         qLeft: 0,
-        qHeight: 3333,
-        qWidth: 3
+        qHeight: 200,
+        qWidth: 4
       }
     ]
   }
@@ -141,21 +146,27 @@ function createGoalsAndSDGTargets() {
       let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
       var targets = document.getElementById("targets")
       targets.innerHTML=""
+      matrix = matrix.filter((row) => row[2].qText === "Goal 14")
       console.log(matrix)
       matrix.forEach((row, index) => {
-        var percentage = row[2].qNum / hypercube.qHyperCube.qGrandTotalRow[0].qNum;
+        var percentage = row[3].qNum / hypercube.qHyperCube.qGrandTotalRow[0].qNum;
         percentage = Math.round(percentage * 100);
-        var div = $(`<div class="kpiElements" id="target${index}"></div>`);
-        $(`#targets`).append(div);
-        div.click(function(){
+        var target = $(`<div class="kpiElements"></div>`)
+        if(row[0].qState === "X") {
+          target.addClass("inactive")
+        }
+        target.append(`<h5>${row[0].qText}</h5>`);
+        target.append(`<img src="./resources/icons/${row[1].qText}.svg"></img>`);
+        target.append(`<h3>${row[3].qText}</h3>`);
+        target.append(`<h3>${percentage}%</h3>`);
+        target.click(function(){
           console.log(row);
-          let field = app.field("SDG Target");
+          let field = app.field("Target Title");
           field.selectValues([row[0].qText], true, true)
         })
-        $(`#target${index}`).append(`<h1>${row[0].qText}</h1>`);
-        $(`#target${index}`).append(`<img src="./resources/icons/${row[1].qText}.svg"></img>`);
-        $(`#target${index}`).append(`<h3>${row[2].qText}</h3>`);
-        $(`#target${index}`).append(`<h3>${percentage}%</h3>`);
+        $(`#targets`).append(target);
+        console.log(row[1].qText)
+
       })
       console.timeEnd("targets-hypercube")
     })
