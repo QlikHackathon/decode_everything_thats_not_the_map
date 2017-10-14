@@ -16,8 +16,8 @@ Promise.all([
   $.getJSON("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"),
 ]).then(([oceanGeoJson, worldGeoJson]) => {
   oceanGeoJson = L.geoJson(oceanGeoJson, {
-    style: style,
-    onEachFeature: onEachFeature
+    style: oceanStyle,
+    onEachFeature: onEachOceanFeature
   }).addTo(mymap)
   mymap.setMaxBounds(oceanGeoJson.getBounds());
 
@@ -58,7 +58,7 @@ function getColor(d) {
          d > 10   ? '#FED976' :
                     '#FFEDA0';
 }
-function style(feature) {
+function oceanStyle(feature) {
   return {
     fillColor: "rgba(0,0,0,0)",
     weight: 2,
@@ -69,16 +69,16 @@ function style(feature) {
   };
 }
 
-function onEachFeature(feature, layer) {
+function onEachOceanFeature(feature, layer) {
   layer.on({
-    mouseover: highlightFeature,
-    mouseout: resetHighlight,
+    mouseover: highlightOceanFeature,
+    mouseout: resetOceanHighlight,
     click: oceanCLicked
   });
   oceanElements.push(layer);
 }
 
-  function highlightFeature(e) {
+  function highlightOceanFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
@@ -96,7 +96,7 @@ function onEachFeature(feature, layer) {
   }
 
 
-  function resetHighlight(e) {
+  function resetOceanHighlight(e) {
     e.target.setStyle({
         weight: 2,
         color: "white",
