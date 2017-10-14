@@ -4,7 +4,7 @@ function updateFilterBar (selections) {
     if (item.fieldName === 'Ocean Basins' || item.fieldName === 'Country') {
       var filters = item.qSelected.split(',')
       filters.forEach(filter => {
-        $('#filters-bar').append(`<span class="filter"><a href="#" class="delete-filter"><img class="close-icon" src="resources/images/close.png"></a><span> ${filter} </span></span>`)
+        $('#filters-bar').append(`<span class="filter"><a href="#" class="delete-filter"><img class="close-icon" src="/resources/images/close.png"></a><span>${filter}</span></span>`)
       })
     }
   })

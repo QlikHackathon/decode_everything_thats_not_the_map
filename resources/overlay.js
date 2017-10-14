@@ -1,9 +1,9 @@
 function openOverlay() {
     document.getElementById("qOverlay").style.height = "100%";
-    document.getElementById("all_filters").style.display = "none";
+    document.getElementById("filters-bar").style.display = "none";
 }
 
 function closeOverlay() {
     document.getElementById("qOverlay").style.height = "0%";
-    document.getElementById("all_filters").style.display = "inline";
+    document.getElementById("filters-bar").style.display = "inline";
 }
