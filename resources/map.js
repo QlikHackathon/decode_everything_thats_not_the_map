@@ -1,4 +1,4 @@
-var minZoom = 1.8;
+var minZoom = 1.2;
 var maxZoom = 7;
 var geoJson;
 
@@ -20,7 +20,7 @@ $.getJSON("/resources/map.json", function(counrtyGeoJson){
   mymap.setMaxBounds(geoJson.getBounds());
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-    maxZoom: 7,
+    maxZoom: maxZoom,
     id: 'mapbox.light',
     noWrap: true,
     continuousWorld: true,
