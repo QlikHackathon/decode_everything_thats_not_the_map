@@ -11,7 +11,7 @@ code {
 }
 
 .header {
-  background: url("/resources/images/header.jpg") no-repeat center center fixed; 
+  background: url("/resources/images/header.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -235,6 +235,10 @@ h1 {
   float: right;
 }
 
+#filters-bar {
+  display: inline;
+}
+
 .filter {
     margin-right: 15px;
 }
@@ -263,7 +267,7 @@ h1 {
 }
 
 .overlay-image {
-    background: url("./resources/images/overlay-image.jpeg") no-repeat center center fixed; 
+    background: url("./resources/images/overlay-image.jpeg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -329,7 +333,7 @@ body {
     top: 0;
     border-radius: 100%;
   }
-  to { 
+  to {
     height:100%;
     width: 100%;
     right: 0;
