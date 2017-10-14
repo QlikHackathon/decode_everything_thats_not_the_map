@@ -37,16 +37,6 @@ function main() {
     createOceanBasinsPieChart()
     createLeadEntityPieChart()
     createTargetsPieChart()
-    createGoalCountKpi("14.a")
-    createGoalCountKpi("14.b")
-    createGoalCountKpi("14.c")
-    createGoalCountKpi("14.1")
-    createGoalCountKpi("14.2")
-    createGoalCountKpi("14.3")
-    createGoalCountKpi("14.4")
-    createGoalCountKpi("14.5")
-    createGoalCountKpi("14.6")
-    createGoalCountKpi("14.7")
 
     getEntityTypes()
     getEntity()
@@ -57,6 +47,7 @@ function main() {
     }
     //bind the listener
     selState.OnData.bind( listener )
+    createGoalsAndSDGTargets()
     createCommitmentList()
   })
 }
@@ -89,7 +80,7 @@ function createLeadEntityPieChart() {
 function createTargetsPieChart() {
   var listCols = [
     {
-      qDef: { qFieldDefs: ['SDG Targets'] }
+      qDef: {qFieldDefs: ['SDG Target']}
     },
     '=Count([OceanActionID])'
   ]
@@ -111,9 +102,60 @@ function createOceanBasinsPieChart() {
   })
 }
 
-function createGoalCountKpi(target) {
-  var listCols = ["=Count({<[SDG Targets]={'" + target + "'}>}OceanActionID)"]
+function createGoalsAndSDGTargets() {
+  var hyperCubeDef = {
+    qDimensions: [
+      {
+        qDef: {
+          qFieldDefs: ['SDG Target'],
+        }
+      },
+      {
+        qDef: {
+          qFieldDefs:['Target Icon']
+        }
+      }
+    ],
+    qMeasures: [
+      {
+        qDef: { qDef: '=Count([OceanActionID])' },
+        qSortBy: { qSortByNumeric: -1 }
+      },
 
+   ],
+    qInterColumnSortOrder : [2, 0 ,1],
+    qInitialDataFetch: [
+      {
+        qTop: 0,
+        qLeft: 0,
+        qHeight: 3333,
+        qWidth: 3
+      }
+    ]
+  }
+  app
+    .createCube(hyperCubeDef, hypercube => {
+      console.log('Basic Hypercube', hypercube.qHyperCube)
+      let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
+      var targets = document.getElementById("targets")
+      targets.innerHTML=""
+      console.log(matrix)
+      matrix.forEach((row, index) => {
+        var percentage = row[2].qNum / hypercube.qHyperCube.qGrandTotalRow[0].qNum;
+        percentage = Math.round(percentage * 100);
+        $(`#targets`).append(`<div class="kpiElements" id="target${index}"></div>`);
+        $(`#target${index}`).append(`<h1>${row[0].qText}</h1>`);
+        console.log(row[1].qText)
+        $(`#target${index}`).append(`<img src="./resources/icons/${row[1].qText}.svg"></img>`);
+        $(`#target${index}`).append(`<h3>${row[2].qText}</h3>`);
+        $(`#target${index}`).append(`<h3>${percentage}%</h3>`);
+
+      })
+    })
+}
+
+function createGoalCountKpi (target) {
+  var listCols = ["=Count({<[SDG Target]={'"+target+"'}>}OceanActionID)"]
   app.visualization.create('kpi', listCols, {
     title: target + ' Commitments',
     showTitles: true,
