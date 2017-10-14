@@ -1,5 +1,5 @@
 var minZoom = 2;
-var maxZoom = 7;
+var maxZoom = 5;
 var oceanGeoJson;
 var worldGeoJson;
 var oceanBlue = '#0077BE';
@@ -76,7 +76,8 @@ Promise.all([
   }).addTo(mymap);*/
 
   L.tileLayer('https://api.mapbox.com/styles/v1/seriousben/cj8qk0fysal2b2ss27kmivp75/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2VyaW91c2JlbiIsImEiOiJjajhxam9kdnEwa2c5MndxcHBtcjZiZGlxIn0.sPq1wEDyoXKrPW-9ZjUnMA', {
-    //maxZoom: maxZoom,
+    maxZoom: maxZoom,
+    minZoom: minZoom,
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
       '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
       'Imagery © <a href="http://mapbox.com">Mapbox</a>',
