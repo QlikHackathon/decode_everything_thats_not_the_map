@@ -157,7 +157,7 @@ h1 {
 }
 
 .overlay p {
-    margin-bottom: 25px;
+    margin-bottom: 50px;
     line-height: 30px;
     margin-top: 25px;
 }
@@ -280,6 +280,16 @@ h1 {
     }
 }
 
+.overlay-image {
+    background: url("./resources/images/overlay-image.jpeg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
 .capitalized {
     text-transform: uppercase;
 }
@@ -346,14 +356,3 @@ body {
 .inactive {
     opacity: 0.2;
 }
-
-.down-arrow {
-  position: absolute;
-  bottom: 5%;
-  font-size: 30px;
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-  color: white;
-}
-
