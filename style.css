@@ -11,6 +11,17 @@ code {
   font-size: 80%;
 }
 
+#map {
+  height: 750px;
+}
+
+#svg {
+}
+
+#qOverlay {
+  height: 100%;
+}
+
 .chart {
   margin: 30px 10px 30px 10px;
   height: 400px;
@@ -39,4 +50,164 @@ code {
 
 #goal-id-list {
   width: 25%
+}
+
+.overlay {
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    background-color: #3997d9;
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+  margin: 50px 0 0 0px;
+}
+
+.overlay-icon {
+  width: 100%;
+}
+
+.close-icon {
+  width: 20px;
+  margin-bottom: 3px;
+  margin-right: 5px;
+}
+
+.delete-filter:hover {
+  text-decoration: none;
+}
+
+.overlay-text {
+  display: inline-block;
+  text-align: left;
+  color: white;
+  font-size: 25px;
+}
+
+.overlay-text h1 {
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.overlay p {
+  margin-bottom: 50px;
+  line-height: 30px;
+  margin-top: 25px;
+}
+
+.overlay-text {
+  font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+}
+
+.overlay-text .read-more {
+  position: absolute;
+  right: 5%;
+  text-decoration: underline;
+  color: white;
+}
+
+.overlay {
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    text-decoration: none;
+    color: white;
+    z-index: 5;
+}
+
+#all_filters {
+  display: none;
+}
+
+.filters {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #d99f39;
+    color: #f1f1f1;
+    text-align: left;
+    padding:12px 15px;
+    z-index:999;
+    display:inline;
+    -webkit-box-shadow: 0px -3px 3px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    0px -3px 3px rgba(50, 50, 50, 0.25);
+    box-shadow:         0px -3px 3px rgba(50, 50, 50, 0.25);
+}
+
+.filters span:first-child {
+  font-size: 20px;
+  color: #353535;
+  border-right: thin solid #f0c477;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.filter {
+  margin-right: 15px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay {overflow-y: auto;}
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+}
+
+.carousel {
+  z-index: -1;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.carousel-item.first {
+  background: url("https://i.pinimg.com/originals/e0/42/b6/e042b6190844ee4a64466a58cca313f1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel-item.second {
+  background: url("https://images.pexels.com/photos/37403/bora-bora-french-polynesia-sunset-ocean.jpg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel-item.third {
+  background: url("http://www.yoga213.com.au/wp-content/uploads/17-ocean-beach-sand-sky-wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel-item {
+  height: 450px;
+  width: 100%;
+}
+
+.capitalized {
+  text-transform: uppercase;
+}
+
+.oswald {
+  font-family: 'Oswald', sans-serif;
 }
