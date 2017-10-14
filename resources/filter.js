@@ -4,15 +4,13 @@ function updateFilterBar (selections) {
     if (item.fieldName === 'Ocean Basins' || item.fieldName === 'Country') {
       var filters = item.qSelected.split(',')
       filters.forEach(filter => {
-        $('#filters-bar').append(`<span class="filter"><a href="#" onclick="unclickFilter("${item.fieldName}")" class="delete-filter"><img class="close-icon" src="resources/images/close.png"></a><span> ${filter} </span></span>`)
+        filter = filter.trim()
+        $('#filters-bar').append(`<span class="filter"><a href="#" onclick="unclickFilter('${item.fieldName}', '${filter}')" class="delete-filter"><img class="close-icon" src="resources/images/close.png"></a><span> ${filter} </span></span>`)
       })
     }
   })
 }
 
-function unclickFilter(a1) {
-  console.log("hello")
-  console.log(a1)
-  // console.log(a2)
-  app.field("Country").selectValues([clickedCountry], true, false)
+function unclickFilter(filterType, filterSelection) {
+  app.field(filterType).selectValues([filterSelection], true, false)
 }
