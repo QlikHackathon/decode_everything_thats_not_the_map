@@ -32,7 +32,8 @@ function main () {
     let field = app.field("Goal ID")
     field.selectValues(["Goal 14"], false, true)
     field.lock()
-    setupMapHyperCube();
+    setupCountriesHyperCube();
+    setupOceansHyperCube();
     createLeadEntityTypePieChart()
     createOceanBasinsPieChart()
     createLeadEntityPieChart()

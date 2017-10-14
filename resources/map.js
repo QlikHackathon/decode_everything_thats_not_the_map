@@ -1,14 +1,19 @@
-var minZoom = 2.3;
+var minZoom = 2;
 var maxZoom = 7;
-var geoJson;
+var oceanGeoJson;
+var worldGeoJson;
 
-var mymap = L.map('mapid').setView([0, 0], minZoom);
+var mymap = L.map('mapid', {
+  zoomDelta: 0.5,
+  zoomSnap: 0,
+}).setView([30, 2], minZoom).zoomIn(0.5)
 mymap.options.minZoom = minZoom;
 /*mymap.on('dragend', function(e) {
-  
+
 });*/
 
 var oceanElements = [];
+var countriesElement = [];
 
 Promise.all([
   $.getJSON("/resources/oceans.json"),
@@ -20,9 +25,36 @@ Promise.all([
   }).addTo(mymap)
   mymap.setMaxBounds(oceanGeoJson.getBounds());
 
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-    maxZoom: 7,
+  worldGeoJson = L.geoJson(worldGeoJson, {
+    style: () => ({color: 'transparent'}),
+    onEachFeature: (feature, layer) => {
+      layer.on({
+        //mouseover: highlightOceanFeature,
+        //mouseout: resetOceanHighlight,
+        click: () => {
+          let clickedCountry = feature.properties.name;
+          console.log(clickedCountry);
+          app.field("Country").selectValues([clickedCountry], true, false)
+        },
+      });
+      countriesElement.push(layer);
+    },
+  }).addTo(mymap)
+
+  /*L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+    maxZoom: maxZoom,
     id: 'mapbox.light',
+    noWrap: true,
+    continuousWorld: true,
+    bounds: oceanGeoJson.getBounds(),
+    maxBoundsViscosity: 1.0 //How much force you experience when going out of bounds
+  }).addTo(mymap);*/
+
+  L.tileLayer('https://api.mapbox.com/styles/v1/seriousben/cj8qk0fysal2b2ss27kmivp75/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2VyaW91c2JlbiIsImEiOiJjajhxam9kdnEwa2c5MndxcHBtcjZiZGlxIn0.sPq1wEDyoXKrPW-9ZjUnMA', {
+    //maxZoom: maxZoom,
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
     noWrap: true,
     continuousWorld: true,
     bounds: oceanGeoJson.getBounds(),
@@ -126,9 +158,9 @@ function onEachOceanFeature(feature, layer) {
     // }
   }
 
-  function reloadMap(oceans) {
+  function reloadOceansLayer(hypercube) {
     oceanElements.forEach(function(oceanElement) {
-      if (isInCube(oceans, oceanElement.feature.properties.NAME)) {
+      if (isFeatureInCube(hypercube, oceanElement.feature.properties.NAME)) {
         oceanElement.setStyle({ fillColor: '#0077BE', fill: true});
       } else {
         oceanElement.setStyle({ fillColor: 'rgba(0,0,0,0)', fill: true});
@@ -136,15 +168,20 @@ function onEachOceanFeature(feature, layer) {
     });
   }
 
-  function isInCube(oceanCube, oceanName) {
-    var found = false;
-    oceanCube.forEach(function(ocean) {
-      console.log(oceanName);
-      console.log(ocean[0].qText);
-      console.log(oceanName.toLowerCase() == ocean[0].qText.toLowerCase())
-      if (oceanName.toLowerCase() == ocean[0].qText.toLowerCase()) {
-        found = true
-      }
+function reloadCountriesLayer(hypercube) {
+  countriesElement.forEach(function(countryElement) {
+    if (isFeatureInCube(hypercube, countryElement.feature.properties.name)) {
+      countryElement.setStyle({ color: 'green' });
+    } else {
+      countryElement.setStyle({ color: 'transparent' });
+    }
+  });
+}
+
+  function isFeatureInCube(hypercube, featureName) {
+    return hypercube.find((data) => {
+      //console.log(featureName, data[0].qText);
+      //console.log(featureName.toLowerCase() == data[0].qText.toLowerCase())
+      return featureName.toLowerCase() == data[0].qText.toLowerCase();
     });
-    return found;
   }
