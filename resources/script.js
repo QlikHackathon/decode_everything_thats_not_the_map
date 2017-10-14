@@ -140,13 +140,10 @@ function createGoalsAndSDGTargets() {
   }
   app
     .createCube(hyperCubeDef, hypercube => {
-      console.time("targets-hypercube")
-      console.log('Basic Hypercube', hypercube.qHyperCube)
       let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
       var targets = document.getElementById("targets")
       targets.innerHTML=""
       matrix = matrix.filter((row) => row[2].qText === "Goal 14")
-      console.log(matrix)
       matrix.forEach((row, index) => {
         var percentage = row[3].qNum / hypercube.qHyperCube.qGrandTotalRow[0].qNum;
         percentage = Math.round(percentage * 100);
@@ -159,13 +156,11 @@ function createGoalsAndSDGTargets() {
         target.append(`<h3>${row[3].qText}</h3>`);
         target.append(`<h3>${percentage}%</h3>`);
         target.click(function(){
-          console.log(row);
           let field = app.field("Target Title");
           field.selectValues([row[0].qText], true, true)
         })
         $(`#targets`).append(target);
       })
-      console.timeEnd("targets-hypercube")
     })
 }
 
@@ -232,7 +227,6 @@ function createLeadEntityTypesList() {
   
     let field = app.field("Lead entity type")
     let listener = () => {
-      console.log(field.rows)
       const $list = $('#leadEntityTypeList');
       $list.empty();
       field.rows.forEach(row => {
@@ -255,8 +249,6 @@ function createLeadEntityList() {
 
   let field = app.field("Lead entity")
   let listener = () => {
-    console.log('load list')
-    console.log(field.rows)
     const $list = $('#leadEntityList');
     $list.empty();
     field.rows.forEach(row => {
