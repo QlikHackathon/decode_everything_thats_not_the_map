@@ -60,11 +60,11 @@ code {
     width: 100%;
     position: fixed;
     z-index: 1001;
-    top: 0;
-    left: 0;
     background-color: #3997d9;
-    overflow-y: hidden;
+    overflow: hidden;
     transition: 0.5s;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
 }
 
 .overlay-content {
@@ -107,19 +107,9 @@ code {
     font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
 }
 
-.overlay-text .read-more {
-    position: absolute;
-    right: 5%;
+.overlay-text a {
     text-decoration: underline;
     color: white;
-}
-
-.overlay {
-    text-decoration: none;
-    font-size: 36px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
 }
 
 .overlay .closebtn {
@@ -204,4 +194,19 @@ code {
 
 body {
     padding-bottom: 100px;
+}
+
+@keyframes close-overlay {
+  from {
+    height:100%;
+    right: 0;
+  }
+  to {
+    height: 10%;
+    width: 10%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 100%;
+  }
 }
