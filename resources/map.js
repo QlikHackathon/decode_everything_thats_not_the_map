@@ -33,7 +33,6 @@ Promise.all([
         //mouseout: resetOceanHighlight,
         click: () => {
           let clickedCountry = feature.properties.name;
-          console.log(clickedCountry);
           app.field("Country").selectValues([clickedCountry], true, false)
         },
       });
@@ -143,7 +142,6 @@ function onEachOceanFeature(feature, layer) {
 
   function oceanCLicked(e) {
     let clickedOcean = e.target.feature.properties.NAME;
-    console.log(clickedOcean);
     app.field("Ocean Basins").selectValues([clickedOcean], true, false)
     // if(e.target.isClicked == null) {
     //   e.target.isClicked = true;
@@ -180,8 +178,6 @@ function reloadCountriesLayer(hypercube) {
 
   function isFeatureInCube(hypercube, featureName) {
     return hypercube.find((data) => {
-      //console.log(featureName, data[0].qText);
-      //console.log(featureName.toLowerCase() == data[0].qText.toLowerCase())
       return featureName.toLowerCase() == data[0].qText.toLowerCase();
     });
   }

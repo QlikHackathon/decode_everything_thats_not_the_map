@@ -26,9 +26,7 @@ function main () {
     })
 
     // Open a dataset on the server
-    console.log('Connecting to appname: ' + config.appname)
     app = qlik.openApp(config.appname, config)
-    console.log(app)
     let field = app.field("Goal ID")
     field.selectValues(["Goal 14"], false, true)
     field.lock()
@@ -51,7 +49,6 @@ function main () {
 
     getEntityTypes()
     getEntity()
-    console.log(app.selectionState())
   })
 }
 
@@ -89,7 +86,6 @@ function createTargetsPieChart () {
   ]
 
   app.visualization.create('treemap', listCols, {title: 'Targets Pie Charts'}).then(function (piechart) {
-    console.log(piechart)
     piechart.show('targets-pie-chart')
   })
 }
@@ -103,7 +99,6 @@ function createOceanBasinsPieChart () {
   ]
 
   app.visualization.create('treemap', listCols, {title: 'Ocean Basins Pie Chart'}).then(function (piechart) {
-    console.log(piechart)
     piechart.show('ocean-basins-pie-chart')
   })
 }
@@ -125,13 +120,11 @@ function clearState (state) {
   app.clearAll(false, state)
   //except for Goal 14
   app.field("Goal ID").selectValues(["Goal 14"], false, false)
-  console.log('State Cleared:', state)
 }
 
 function getEntityTypes() {
   var myField = app.field("Lead entity type")
   var listener = function() {
-    console.log('Getting entity types')
     var select = document.getElementById('entityTypeSelection')
     var val = select.value
     select.innerHTML=""
@@ -149,11 +142,9 @@ function getEntityTypes() {
 function getEntity() {
   var myField = app.field("Lead entity")
   var listener = function() {
-    console.log('Getting entity')
     var select = document.getElementById('entitySelection')
     var val = select.value
     select.innerHTML=""
-    console.log(myField.rows)
     select.appendChild(createOption('', '--Select--'))
     myField.rows.forEach(function(row) {
       select.appendChild(createOption(row.qText))
