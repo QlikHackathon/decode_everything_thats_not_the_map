@@ -135,6 +135,7 @@ function createGoalsAndSDGTargets() {
   }
   app
     .createCube(hyperCubeDef, hypercube => {
+      console.time("targets-hypercube")
       console.log('Basic Hypercube', hypercube.qHyperCube)
       let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
       var targets = document.getElementById("targets")
@@ -149,8 +150,8 @@ function createGoalsAndSDGTargets() {
         $(`#target${index}`).append(`<img src="./resources/icons/${row[1].qText}.svg"></img>`);
         $(`#target${index}`).append(`<h3>${row[2].qText}</h3>`);
         $(`#target${index}`).append(`<h3>${percentage}%</h3>`);
-
       })
+      console.timeEnd("targets-hypercube")
     })
 }
 
@@ -255,14 +256,17 @@ function createCommitmentList() {
   }
 
   app.createCube(hyperCubeDef, hypercube => {
+    console.time("commitments-hypercube")
     let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
+    const $list = $('#commitmentList');
     matrix.forEach(row => {
       let anchor = $(
         `<a target='_blank' href='${row[0].qText}'>${row[0].qText}</a>`
       )
       let item = $(`<div class='list-group-item'></div>`)
       item.append(anchor)
-      $('#commitmentList').append(item)
+      $list.append(item)
     })
+    console.timeEnd("commitments-hypercube")
   })
 }

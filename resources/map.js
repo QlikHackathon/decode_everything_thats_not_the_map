@@ -96,9 +96,9 @@ info.onAdd = function (map) {
 
 info.update = function (props) {
   const title = '<h4>Commitments</h4>';
-  let data = 'Hover over an Ocean basin or a Country'
+  let data = 'Hover over a selected Ocean basin or Country'
   if (props != undefined && props.numCommitments != undefined) {
-    data = '<b>' + props.name + '</b>&nbsp;&nbsp;' + props.numCommitments;
+    data = '<b>' + (props.name || props.NAME) + '</b>&nbsp;&nbsp;' + props.numCommitments;
   }
   this._div.innerHTML =  title + data;
 };
@@ -182,10 +182,10 @@ function onEachOceanFeature(feature, layer) {
       const matrix = featureInCube(hypercube, oceanElement.feature.properties.NAME);
       if (matrix) {
         oceanElement.setStyle({ fillColor: oceanBlue });
-        oceanElement.feature.properties.commitments = matrix[1].qText;
+        oceanElement.feature.properties.numCommitments = matrix[1].qText;
       } else {
         oceanElement.setStyle({ fillColor: 'rgba(0,0,0,0)' });
-        oceanElement.feature.properties.commitments = undefined;
+        oceanElement.feature.properties.numCommitments = undefined;
       }
     });
   }

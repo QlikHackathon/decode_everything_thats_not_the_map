@@ -17,11 +17,12 @@ function setupOceansHyperCube() {
   }
 
   app.createCube(hyperCubeDef, function (hypercube) {
-
+    console.time("oceans-hypercube")
     const dataMatrix = hypercube.qHyperCube.qDataPages[0].qMatrix;
     const maxCommitment = hypercube.qHyperCube.qMeasureInfo[0].qMax;
 
     reloadOceansLayer(dataMatrix);
+    console.timeEnd("ocean-hypercube")
   })
 }
 
@@ -42,9 +43,11 @@ function setupCountriesHyperCube() {
   }
 
   app.createCube(hyperCubeDef, function (hypercube) {
+    console.time("oceans-hypercube")
     const dataMatrix = hypercube.qHyperCube.qDataPages[0].qMatrix;
     const maxCommitment = hypercube.qHyperCube.qMeasureInfo[0].qMax;
 
     reloadCountriesLayer(dataMatrix);
+    console.timeEnd("oceans-hypercube")
   })
 }
