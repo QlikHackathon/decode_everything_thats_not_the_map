@@ -18,6 +18,10 @@ code {
 #svg {
 }
 
+#qOverlay {
+  height: 100%;
+}
+
 .chart {
   margin: 30px 10px 30px 10px;
   height: 400px;
@@ -53,23 +57,27 @@ code {
     transition: 0.5s;
 }
 
-.overlay-content {
+/*.overlay-content {
     position: relative;
     width: 100%;
 }
 
 .overlay-upper {
+  display: block;
+  overflow: auto;
+  height: 100%;
   -webkit-box-shadow: 1px 3px 10px 3px rgba(50, 50, 50, 0.25);
   -moz-box-shadow: 1px 3px 10px 3px rgba(50, 50, 50, 0.25);
   box-shadow: 1px 3px 10px 3px rgba(50, 50, 50, 0.25);
+
+}*/
+
+.overlay-content {
+  margin: 50px 0 0 0px;
 }
 
 .overlay-icon {
-  display: inline-block;
-  height: 200px;
-  width: 200px;  
-  position: absolute;
-  margin: 50px 0 0 50px;
+  width: 100%;
 }
 
 .close-icon {
@@ -85,10 +93,8 @@ code {
 .overlay-text {
   display: inline-block;
   text-align: left;
-  margin: 50px 0 0 290px;
   color: white;
-  font-size: 30px;
-  height: 470px;
+  font-size: 25px;
 }
 
 .overlay-text h1 {
@@ -98,7 +104,8 @@ code {
 
 .overlay p {
   margin-bottom: 50px;
-  line-height: 35px;
+  line-height: 30px;
+  margin-top: 25px;
 }
 
 .overlay-text {
@@ -128,6 +135,10 @@ code {
     text-decoration: none;
     color: white;
     z-index: 5;
+}
+
+#all_filters {
+  display: none;
 }
 
 .filters {
