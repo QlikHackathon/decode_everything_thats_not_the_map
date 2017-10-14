@@ -49,6 +49,14 @@ function main () {
 
     getEntityTypes()
     getEntity()
+
+    var selState = app.selectionState( )
+    var listener = function() {
+      console.log(selState.selections)
+      updateFilterBar(selState.selections)
+    }
+    //bind the listener
+    selState.OnData.bind( listener )
   })
 }
 
@@ -60,7 +68,7 @@ function createLeadEntityTypePieChart () {
     '=Count(distinct [Lead entity])'
   ]
 
-  app.visualization.create('treemap', listCols, {title: 'Lead Entity Type Pie Chart'}).then(function (piechart) {
+  app.visualization.create('piechart', listCols, {title: 'Lead Entity Type Pie Chart'}).then(function (piechart) {
     piechart.show('lead-entity-type-pie-chart')
   })
 }
@@ -73,7 +81,7 @@ function createLeadEntityPieChart () {
     '=Count([OceanActionID])'
   ]
 
-  app.visualization.create('treemap', listCols, {title: 'Lead Entity Pie Chart'}).then(function (piechart) {
+  app.visualization.create('list', listCols, {title: 'Lead Entity Pie Chart'}).then(function (piechart) {
     piechart.show('lead-entity-pie-chart')
   })
 }

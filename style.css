@@ -154,14 +154,6 @@ code {
     box-shadow:         0px -3px 3px rgba(50, 50, 50, 0.25);
 }
 
-.filters span:first-child {
-  font-size: 20px;
-  color: #353535;
-  border-right: thin solid #f0c477;
-  margin-right: 10px;
-  padding: 5px;
-}
-
 .filter {
   margin-right: 15px;
 }
