@@ -12,7 +12,8 @@ code {
 }
 
 #map {
-  height: 750px;
+  margin-top: 61px;
+  height: auto;
 }
 
 #svg {
@@ -30,10 +31,10 @@ code {
 }
 
 #mapid {
-  width: 80%;
-  height: 600px;
+  width: 65vmax;
+  height: 40vmax;
   text-align: center;
-  margin-left: 10%;
+  margin-left: 17.5%;
 }
 
 #buttons-div {

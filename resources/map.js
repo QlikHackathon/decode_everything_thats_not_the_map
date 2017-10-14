@@ -1,18 +1,17 @@
-var minZoom = 1.2;
+var minZoom = 2.3;
 var maxZoom = 7;
 var geoJson;
 
-var mymap = L.map('mapid').setView([37.8, -96], minZoom);
+var mymap = L.map('mapid').setView([0, 0], minZoom);
 mymap.options.minZoom = minZoom;
 /*mymap.on('dragend', function(e) {
-    if(geoJson != null)
-        mymap.fitBounds(geoJson.getBounds());
+  
 });*/
 
 var oceanElements = [];
 
 Promise.all([
-  $.getJSON("/resources/map.json"),
+  $.getJSON("/resources/oceans.json"),
   $.getJSON("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"),
 ]).then(([oceanGeoJson, worldGeoJson]) => {
   oceanGeoJson = L.geoJson(oceanGeoJson, {
@@ -22,14 +21,15 @@ Promise.all([
   mymap.setMaxBounds(oceanGeoJson.getBounds());
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-    maxZoom: maxZoom,
+    maxZoom: 7,
     id: 'mapbox.light',
     noWrap: true,
     continuousWorld: true,
     bounds: oceanGeoJson.getBounds(),
     maxBoundsViscosity: 1.0 //How much force you experience when going out of bounds
   }).addTo(mymap);
-})
+  mymap.panTo(new L.LatLng(0, 0));
+});
 
 // control that shows state info on hover
 var info = L.control();
@@ -129,7 +129,7 @@ function onEachOceanFeature(feature, layer) {
   function reloadMap(oceans) {
     oceanElements.forEach(function(oceanElement) {
       if (isInCube(oceans, oceanElement.feature.properties.NAME)) {
-        oceanElement.setStyle({ fillColor: '#FF0000', fill: true});
+        oceanElement.setStyle({ fillColor: '#0077BE', fill: true});
       } else {
         oceanElement.setStyle({ fillColor: 'rgba(0,0,0,0)', fill: true});
       }
