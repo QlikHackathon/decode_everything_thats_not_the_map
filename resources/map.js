@@ -1,17 +1,31 @@
-var mymap = L.map('mapid').setView([37.8, -96], 2);
-var geoJson
+var minZoom = 1.8;
+var maxZoom = 7;
+var geoJson;
+
+var mymap = L.map('mapid').setView([37.8, -96], minZoom);
+mymap.options.minZoom = minZoom;
+/*mymap.on('dragend', function(e) {
+    if(geoJson != null)
+        mymap.fitBounds(geoJson.getBounds());
+});*/
 
 $.getJSON("/resources/map.json", function(counrtyGeoJson){
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-    maxZoom: 18,
-    id: 'mapbox.light',
-    noWrap: true
-  }).addTo(mymap);
-
+  
   geoJson = L.geoJson(counrtyGeoJson, {
     style: style,
     onEachFeature: onEachFeature
   }).addTo(mymap)
+  mymap.setMaxBounds(geoJson.getBounds());
+  
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+    maxZoom: 7,
+    id: 'mapbox.light',
+    noWrap: true,
+    continuousWorld: true,
+    bounds: geoJson.getBounds(),
+    maxBoundsViscosity: 1.0 //How much force you experience when going out of bounds
+  }).addTo(mymap);
+  
 })
 
 // control that shows state info on hover
