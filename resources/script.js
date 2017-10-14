@@ -153,8 +153,8 @@ function createGoalsAndSDGTargets() {
         }
         target.append(`<h5>${row[0].qText}</h5>`);
         target.append(`<img src="./resources/icons/${row[1].qText}.svg"></img>`);
-        target.append(`<h3>${row[3].qText}</h3>`);
-        target.append(`<h3>${percentage}%</h3>`);
+        target.append(`<h5>${row[3].qText}</h5>`);
+        target.append(`<h5>${percentage}%</h5>`);
         target.click(function(){
           let field = app.field("Target Title");
           field.selectValues([row[0].qText], true, true)

@@ -56,38 +56,39 @@
       <div class="down-arrow">Scroll down to explore more &#8595; </div>
     </div>
   </div>
-  <div class="header">
-    <div class="header-content">
-      <img class="header-icon" src="resources/images/logo.png">
+  <span class="arrow" onclick="openOverlay()">&#8601;</span>
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="oswald map-title"> Volunteer <br/> Commitments </h1>
+    </div>
+    <div class="col-md-4" style="margin-left:-50px;">
+      <h1 class="oswald"> Sustainable Developent Goals </h1>
     </div>
   </div>
-  <button class="question-mark-button" onClick="openOverlay()"><img src="resources/images/question-mark.png" class="question-mark" /></button>
-  <div id="map">
-    <h1 class="oswald"> Map </h1>
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <p class="center"> Explore the UN Member States, broader community and oceans to see who has volunteered to meet the various commitments for SDG14 and see what those specific commitments are. </p>
+  <div class="row">
+    <div class="col-md-8">
+      <div id="map">  
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <p class="center"> Explore the UN Member States, broader community and oceans to see who has volunteered to meet the various commitments for SDG14 and see what those specific commitments are. </p>
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+        <div id="mapid"></div>
       </div>
-      <div class="col-md-3"></div>
     </div>
-    <div id="mapid"></div>
-  </div>
-  <div id="svg">
-  <h1 class="oswald"> Sustainable Developent Goals </h1>
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
+    <div class="col-md-4" style="margin-left:-50px">
+      <div id="svg">
         <p class="center"> Sustainable Development Goals are categories chosen by the UN to focus commitments. <br /> Click on the categories to filter.</p>
+        <div id="targets" class="kpiAlignment" > </div>
+        <div id="showEnities"></div>
       </div>
-      <div class="col-md-3"></div>
     </div>
-    <div id="targets" class="kpiAlignment" > </div>
-    <div id="showEnities"></div>
   </div>
 
   <div class="filters">
-    <span class="filters-title"> Filters </span>
+    <span class="oswald filters-title"> Filters </span>
     <span id="filters-bar-style"></span>
     <div id="filters-bar">
     </div>
@@ -107,6 +108,7 @@
     <h1 class="oswald">Lead Entities</h1>
     <div class="list-group" id="leadEntityList">
     </div>
+
   </div>
 
   <div class="container list-container">
