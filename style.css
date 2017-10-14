@@ -10,25 +10,6 @@ code {
     font-size: 80%;
 }
 
-.header {
-  background: url("/resources/images/header.jpg") no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  width:100%;
-  height:30%;
-}
-
-.header-content {
-  color: white;
-  text-align: center;
-  padding-top: 20px;
-}
-
-.header-icon {
-  width: 175px;
-
 h1 {
   font-size: 55px;
   text-align: center;
@@ -103,15 +84,15 @@ h1 {
 }
 
 .overlay {
-    height: 0%;
-    width: 100%;
-    position: fixed;
-    z-index: 1001;
-    background-color: #3997d9;
-    overflow: hidden;
-    transition: 0.5s;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
+  height: 0%;
+  width: 100%;
+  position: fixed;
+  z-index: 3001;
+  top: 0;
+  left: 0;
+  background-color: #3997d9;
+  overflow-y: hidden;
+  transition: 0.5s;
 }
 
 .overlay h1 {
@@ -158,9 +139,19 @@ h1 {
     font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
 }
 
-.overlay-text a {
+.overlay-text .read-more {
+    position: absolute;
+    right: 5%;
     text-decoration: underline;
     color: white;
+}
+
+.overlay {
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
 }
 
 .overlay .closebtn {
@@ -171,24 +162,6 @@ h1 {
   text-decoration: none;
   color: white;
   z-index: 5;
-}
-
-.question-mark {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 50px;
-  height: 50px;
-  z-index: 1002;
-}
-
-.question-mark-button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 50px;
-  width: 50px;
-  border-radius: 50px;
 }
 
 .kpiAlignment {
@@ -209,6 +182,7 @@ h1 {
   text-align:center;
   cursor: pointer;
 }
+
 
 #all_filters {
     display: none;
@@ -258,7 +232,7 @@ h1 {
 }
 
 .overlay-image {
-    background: url("./resources/images/overlay-image.jpeg") no-repeat center center fixed; 
+    background: url("https://i.pinimg.com/originals/e0/42/b6/e042b6190844ee4a64466a58cca313f1.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -304,38 +278,6 @@ body {
     padding-bottom: 100px;
 }
 
-@keyframes close-overlay {
-  from {
-    height:100%;
-    right: 0;
-  }
-  to {
-    height: 50px;
-    width: 50px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-radius: 100%;
-  }
-}
-
-@keyframes open-overlay {
-  from {
-    height: 50px;
-    width: 50px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-radius: 100%;
-  }
-  to { 
-    height:100%;
-    width: 100%;
-    right: 0;
-  }
-}
-
 .inactive {
   opacity: 0.2;
 }
-
