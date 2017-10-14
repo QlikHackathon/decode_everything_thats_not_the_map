@@ -32,6 +32,7 @@ function main() {
     field.lock()
     setupCountriesHyperCube();
     setupOceansHyperCube();
+
     createLeadEntityTypePieChart()
     createOceanBasinsPieChart()
     createLeadEntityPieChart()
@@ -39,9 +40,15 @@ function main() {
 
     getEntityTypes()
     getEntity()
+
+    var selState = app.selectionState( )
+    var listener = function() {
+      updateFilterBar(selState.selections)
+    }
+    //bind the listener
+    selState.OnData.bind( listener )
     createGoalsAndSDGTargets()
     createCommitmentList()
-    console.log(app.selectionState())
   })
 }
 
