@@ -10,6 +10,16 @@ code {
     font-size: 80%;
 }
 
+h1 {
+  font-size: 55px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.center {
+  text-align: center;
+}
+
 #map {
     margin-top: 61px;
     height: auto;
@@ -83,6 +93,10 @@ code {
   background-color: #3997d9;
   overflow-y: hidden;
   transition: 0.5s;
+}
+
+.overlay h1 {
+  text-align: left;
 }
 
 .overlay-content {
@@ -190,6 +204,15 @@ code {
 
 .filter {
     margin-right: 15px;
+}
+
+.filters-title {
+  font-size: 20px;
+}
+
+#filters-bar-style {
+  border-right: thin double #f0c477;
+  margin-right: 10px;
 }
 
 @media screen and (max-height: 450px) {

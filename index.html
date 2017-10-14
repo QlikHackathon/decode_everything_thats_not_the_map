@@ -46,7 +46,15 @@
     </div>
   </div>
   <span style="font-size:30px;cursor:pointer;float:right;padding:16px 45px 0 0;" onclick="openOverlay()">&#8601;</span>
-  <div id="map">
+  <div id="map">  
+    <h1 class="oswald"> Map </h1>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <p class="center"> Explore the UN Member States, broader community and oceans to see who has volunteered to meet the various commitments for SDG14 and see what those specific commitments are. </p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
     <div id="mapid"></div>
     <div id="buttons-div">
       <button type="button" class="btn btn-primary" onclick="clearState()">Clear Selections</button>
@@ -57,13 +65,21 @@
     </div>
   </div>
   <div id="svg">
-
+  <h1 class="oswald"> Sustaiable Developent Goals </h1>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <p class="center"> Sustainable Development Goals are categories chosen by the UN to focus commitments. <br /> Click on the categories to filter.</p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
     <div id="targets" class="kpiAlignment" > </div>
     <div id="showEnities"></div>
   </div>
 
   <div class="filters">
-    <span> Filters </span>
+    <span class="filters-title"> Filters </span>
+    <span id="filters-bar-style"></span>
     <div id="filters-bar">
     </div>
     <div id="commitment-count">Commitments:
@@ -72,7 +88,14 @@
   </div>
 
   <div class="container list-container">
-    <h1>Commitments</h1>
+    <h1 class="oswald"> Commitments </h1>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <p class="center"> The specific commitments of the UN Member States and broader community. </p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
     <div class="list-group" id="commitmentList">
     </div>
   </div>
