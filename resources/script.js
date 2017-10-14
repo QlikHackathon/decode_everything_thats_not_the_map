@@ -32,26 +32,24 @@ function main() {
     field.lock()
     setupCountriesHyperCube();
     setupOceansHyperCube();
+    setupFilterBarHyperCube();
+
     createLeadEntityTypePieChart()
     createOceanBasinsPieChart()
     createLeadEntityPieChart()
     createTargetsPieChart()
-    createGoalCountKpi("14.a")
-    createGoalCountKpi("14.b")
-    createGoalCountKpi("14.c")
-    createGoalCountKpi("14.1")
-    createGoalCountKpi("14.2")
-    createGoalCountKpi("14.3")
-    createGoalCountKpi("14.4")
-    createGoalCountKpi("14.5")
-    createGoalCountKpi("14.6")
-    createGoalCountKpi("14.7")
 
     getEntityTypes()
     getEntity()
 
+    var selState = app.selectionState( )
+    var listener = function() {
+      updateFilterBar(selState.selections)
+    }
+    //bind the listener
+    selState.OnData.bind( listener )
+    createGoalsAndSDGTargets()
     createCommitmentList()
-    console.log(app.selectionState())
   })
 }
 
@@ -83,7 +81,7 @@ function createLeadEntityPieChart() {
 function createTargetsPieChart() {
   var listCols = [
     {
-      qDef: { qFieldDefs: ['SDG Targets'] }
+      qDef: {qFieldDefs: ['SDG Target']}
     },
     '=Count([OceanActionID])'
   ]
@@ -105,9 +103,75 @@ function createOceanBasinsPieChart() {
   })
 }
 
-function createGoalCountKpi(target) {
-  var listCols = ["=Count({<[SDG Targets]={'" + target + "'}>}OceanActionID)"]
+function createGoalsAndSDGTargets() {
+  var hyperCubeDef = {
+    qDimensions: [
+      {
+        qDef: {
+          qFieldDefs: ['Target Title'],
+        }
+      },
+      {
+        qDef: {
+          qFieldDefs:['Target Icon']
+        }
+      },
+      {
+        qDef: {
+          qFieldDefs: ['Goal ID'],
+        }
+      }
+    ],
+    qMeasures: [
+      {
+        qDef: { qDef: '=Count(OceanActionID) + (0 * Count({1}OceanActionID))' },
+        qSortBy: { qSortByNumeric: -1 }
+      },
 
+   ],
+    qInterColumnSortOrder : [2, 0 ,1],
+    qInitialDataFetch: [
+      {
+        qTop: 0,
+        qLeft: 0,
+        qHeight: 200,
+        qWidth: 4
+      }
+    ]
+  }
+  app
+    .createCube(hyperCubeDef, hypercube => {
+      console.time("targets-hypercube")
+      console.log('Basic Hypercube', hypercube.qHyperCube)
+      let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
+      var targets = document.getElementById("targets")
+      targets.innerHTML=""
+      matrix = matrix.filter((row) => row[2].qText === "Goal 14")
+      console.log(matrix)
+      matrix.forEach((row, index) => {
+        var percentage = row[3].qNum / hypercube.qHyperCube.qGrandTotalRow[0].qNum;
+        percentage = Math.round(percentage * 100);
+        var target = $(`<div class="kpiElements"></div>`)
+        if(row[0].qState === "X") {
+          target.addClass("inactive")
+        }
+        target.append(`<h5>${row[0].qText}</h5>`);
+        target.append(`<img src="./resources/icons/${row[1].qText}.svg"></img>`);
+        target.append(`<h3>${row[3].qText}</h3>`);
+        target.append(`<h3>${percentage}%</h3>`);
+        target.click(function(){
+          console.log(row);
+          let field = app.field("Target Title");
+          field.selectValues([row[0].qText], true, true)
+        })
+        $(`#targets`).append(target);
+      })
+      console.timeEnd("targets-hypercube")
+    })
+}
+
+function createGoalCountKpi (target) {
+  var listCols = ["=Count({<[SDG Target]={'"+target+"'}>}OceanActionID)"]
   app.visualization.create('kpi', listCols, {
     title: target + ' Commitments',
     showTitles: true,
@@ -191,7 +255,7 @@ function createCommitmentList() {
       },
       {
         qDef: {
-          qFieldDefs: ['ActionID']
+          qFieldDefs: ['Commitment Url']
         }
       }
     ],
@@ -207,14 +271,18 @@ function createCommitmentList() {
   }
 
   app.createCube(hyperCubeDef, hypercube => {
+    console.time("commitments-hypercube")
     let matrix = hypercube.qHyperCube.qDataPages[0].qMatrix
+    const $list = $('#commitmentList');
+    $list.empty();
     matrix.forEach(row => {
       let anchor = $(
-        `<a target='_blank' href='${row[0].qText}'>${row[0].qText}</a>`
+        `<a target='_blank' href='${row[1].qText}'>${row[0].qText}</a>`
       )
       let item = $(`<div class='list-group-item'></div>`)
       item.append(anchor)
-      $('#commitmentList').append(item)
+      $list.append(item)
     })
+    console.timeEnd("commitments-hypercube")
   })
 }

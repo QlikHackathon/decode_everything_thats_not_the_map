@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin=""/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
-
     <script src="resources/overlay.js"></script>
   </head>
   <body>
@@ -28,7 +27,7 @@
           <div class="col col-md-2">
             <img class="overlay-icon" src="resources/images/logo.png">
           </div>
-          
+
           <div class="col col-md-10 overlay-text">
             <h1 class="oswald">GOAL 14</h1>
             <h2 class="capitalized oswald">conserve and sustainbly use the oceans, seas and marine resources for sustainable development</h2>
@@ -48,6 +47,14 @@
   </div>
   <button class="question-mark-button" onClick="openOverlay()"><img src="resources/images/question-mark.png" class="question-mark" /></button>
   <div id="map">
+    <h1 class="oswald"> Map </h1>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <p class="center"> Explore the UN Member States, broader community and oceans to see who has volunteered to meet the various commitments for SDG14 and see what those specific commitments are. </p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
     <div id="mapid"></div>
     <div id="buttons-div">
       <button type="button" class="btn btn-primary" onclick="clearState()">Clear Selections</button>
@@ -57,48 +64,38 @@
       </select>
     </div>
   </div>
-
   <div id="svg">
-    <div id="ocean-basins-pie-chart" class="chart"></div>
-    <div id="lead-entity-type-pie-chart" class="chart"></div>
-    <div id="lead-entity-pie-chart" class="chart"></div>
-    <div id="targets-pie-chart" class="chart"></div>
-    <div id="ocean-basins-pie-chart" class="chart"></div>
-    <div id="lead-entity-type-pie-chart" class="chart"></div>
-    <div id="lead-entity-pie-chart" class="chart"></div>
-    <div id="targets-pie-chart" class="chart"></div>
-    <div id="goals-count-kpi-14.a" class="chart"></div>
-    <div id="goals-count-kpi-14.b" class="chart"></div>
-    <div id="goals-count-kpi-14.c" class="chart"></div>
-    <div id="goals-count-kpi-14.1" class="chart"></div>
-    <div id="goals-count-kpi-14.2" class="chart"></div>
-    <div id="goals-count-kpi-14.3" class="chart"></div>
-    <div id="goals-count-kpi-14.4" class="chart"></div>
-    <div id="goals-count-kpi-14.5" class="chart"></div>
-    <div id="goals-count-kpi-14.6" class="chart"></div>
-    <div id="goals-count-kpi-14.7" class="chart"></div>
+  <h1 class="oswald"> Sustaiable Developent Goals </h1>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <p class="center"> Sustainable Development Goals are categories chosen by the UN to focus commitments. <br /> Click on the categories to filter.</p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div id="targets" class="kpiAlignment" > </div>
+    <div id="showEnities"></div>
   </div>
 
-  <div class="filters" id="all_filters">
-    <span> Filters </span>
-
-    <span class="filter">
-      <a href="#" class="delete-filter">
-        <img class="close-icon" src="resources/images/close.png">
-      </a>
-      <span> Ocean Name </span>
-    </span>
-
-    <span class="filter">
-      <a href="#" class="delete-filter">
-        <img class="close-icon" src="resources/images/close.png">
-      </a>
-      <span> Ocean Name </span>
-    </span>
-
+  <div class="filters">
+    <span class="filters-title"> Filters </span>
+    <span id="filters-bar-style"></span>
+    <div id="filters-bar">
+    </div>
+    <div id="commitment-count">Commitments:
+      <span id="commitments"></span>
+    </div>
   </div>
 
   <div class="container list-container">
+    <h1 class="oswald"> Commitments </h1>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <p class="center"> The specific commitments of the UN Member States and broader community. </p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
     <div class="list-group" id="commitmentList">
     </div>
   </div>
@@ -115,9 +112,10 @@
   <script type="text/javascript" src="/resources/mapHyperCube.js"></script>
   <script type="text/javascript" src="/resources/script.js"></script>
   <script type="text/javascript" src="/resources/map.js"></script>
+  <script type="text/javascript" src="/resources/filter.js"></script>
+  <script type="text/javascript" src="/resources/filterBarCube.js"></script>
   <script type="text/javascript">
     main();
   </script>
 </body>
-
 </html>

@@ -2,15 +2,19 @@ var minZoom = 2;
 var maxZoom = 7;
 var oceanGeoJson;
 var worldGeoJson;
+var oceanBlue = '#0077BE';
 
 var mymap = L.map('mapid', {
   zoomDelta: 0.5,
   zoomSnap: 0,
-}).setView([30, 2], minZoom).zoomIn(0.5)
-mymap.options.minZoom = minZoom;
-/*mymap.on('dragend', function(e) {
-
-});*/
+  trackResize: true,
+}).setView([30, 2], 0);
+mymap.on('resize', function(e) {
+  mymap.fitBounds([
+    [78.7376130545727, 180.2446852962772],
+    [-65.94838222431271, -179.423608503526]
+  ]);
+});
 
 var oceanElements = [];
 var countriesElement = [];
@@ -29,8 +33,30 @@ Promise.all([
     style: () => ({color: 'transparent'}),
     onEachFeature: (feature, layer) => {
       layer.on({
-        //mouseover: highlightOceanFeature,
-        //mouseout: resetOceanHighlight,
+        mouseover: (e) => {
+          var layer = e.target;
+
+          layer.setStyle({
+            fillOpacity: 0.4,
+          });
+
+          if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+          }
+          info.update(layer.feature.properties);
+        },
+        mouseout: (e) => {
+          var layer = e.target;
+
+          layer.setStyle({
+            fillOpacity: 0.2,
+          });
+
+          if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+          }
+          info.update(layer.feature.properties);
+        },
         click: () => {
           let clickedCountry = feature.properties.name;
           app.field("Country").selectValues([clickedCountry], true, false)
@@ -59,7 +85,12 @@ Promise.all([
     bounds: oceanGeoJson.getBounds(),
     maxBoundsViscosity: 1.0 //How much force you experience when going out of bounds
   }).addTo(mymap);
-  mymap.panTo(new L.LatLng(0, 0));
+
+  mymap.fitBounds([
+    [78.7376130545727, 180.2446852962772],
+    [-65.94838222431271, -179.423608503526]
+  ]);
+
 });
 
 // control that shows state info on hover
@@ -72,31 +103,28 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-  this._div.innerHTML = '<h4>Commitments Count</h4>' + (props ?
-    '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
-    : 'Hover over a ocean basin');
+  const title = '<h4>Commitments</h4>';
+  let data = 'Hover over a selected Ocean basin or Country'
+  if (props != undefined && props.numCommitments != undefined) {
+    data = '<b>' + (props.name || props.NAME) + '</b>&nbsp;&nbsp;' + props.numCommitments;
+  }
+  this._div.innerHTML =  title + data;
 };
-
 info.addTo(mymap);
 
-function getColor(d) {
-  return d > 1000 ? '#800026' :
-         d > 500  ? '#BD0026' :
-         d > 200  ? '#E31A1C' :
-         d > 100  ? '#FC4E2A' :
-         d > 50   ? '#FD8D3C' :
-         d > 20   ? '#FEB24C' :
-         d > 10   ? '#FED976' :
-                    '#FFEDA0';
-}
 function oceanStyle(feature) {
   return {
-    fillColor: "rgba(0,0,0,0)",
-    weight: 2,
-    opacity: 1,
-    color: 'white',
-    dashArray: '3',
-    fillOpacity: 0.7
+    //fillColor: "rgba(0,0,0,0)",
+    //weight: 2,
+    //opacity: 1,
+    //color: 'white',
+    //dashArray: '3',
+    fillOpacity: 0.2,
+    //fill: 'red',
+    //fillColor: 'red',
+    fillColor: oceanBlue,
+    stroke: 'none',
+    weight: 0,
   };
 }
 
@@ -113,10 +141,10 @@ function onEachOceanFeature(feature, layer) {
     var layer = e.target;
 
     layer.setStyle({
-      weight: 5,
-      color: '#666',
-      fill: e.target.options.fill,
-      fillColor: e.target.options.fillColor
+      //weight: 5,
+      //color: '#666',
+      //fill: e.target.options.fill,
+      fillOpacity: 0.4,
     });
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -129,11 +157,12 @@ function onEachOceanFeature(feature, layer) {
 
   function resetOceanHighlight(e) {
     e.target.setStyle({
-        weight: 2,
-        color: "white",
-        dashArray: '3',
-        fill: e.target.options.fill,
-        fillColor: e.target.options.fillColor
+        //weight: 2,
+        //color: "white",
+        //dashArray: '3',
+        //fill: e.target.options.fill,
+        //fillColor: e.target.options.fillColor
+        fillOpacity: 0.2,
     });
 
 
@@ -158,25 +187,31 @@ function onEachOceanFeature(feature, layer) {
 
   function reloadOceansLayer(hypercube) {
     oceanElements.forEach(function(oceanElement) {
-      if (isFeatureInCube(hypercube, oceanElement.feature.properties.NAME)) {
-        oceanElement.setStyle({ fillColor: '#0077BE', fill: true});
+      const matrix = featureInCube(hypercube, oceanElement.feature.properties.NAME);
+      if (matrix) {
+        oceanElement.setStyle({ fillColor: oceanBlue });
+        oceanElement.feature.properties.numCommitments = matrix[1].qText;
       } else {
-        oceanElement.setStyle({ fillColor: 'rgba(0,0,0,0)', fill: true});
+        oceanElement.setStyle({ fillColor: 'rgba(0,0,0,0)' });
+        oceanElement.feature.properties.numCommitments = undefined;
       }
     });
   }
 
 function reloadCountriesLayer(hypercube) {
   countriesElement.forEach(function(countryElement) {
-    if (isFeatureInCube(hypercube, countryElement.feature.properties.name)) {
-      countryElement.setStyle({ color: 'green' });
+    const matrix = featureInCube(hypercube, countryElement.feature.properties.name);
+    if (matrix) {
+      countryElement.setStyle({ fillColor: 'green' });
+      countryElement.feature.properties.numCommitments = matrix[1].qText;
     } else {
-      countryElement.setStyle({ color: 'transparent' });
+      countryElement.setStyle({ fillColor: 'transparent' });
+      countryElement.feature.properties.numCommitments = undefined;
     }
   });
 }
 
-  function isFeatureInCube(hypercube, featureName) {
+  function featureInCube(hypercube, featureName) {
     return hypercube.find((data) => {
       return featureName.toLowerCase() == data[0].qText.toLowerCase();
     });
